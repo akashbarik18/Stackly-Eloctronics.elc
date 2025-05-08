@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - Stackly Electronics</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #1e1e2f, #2a2a40);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .register-container {
+      max-width: 450px;
+      margin: 60px auto;
+      padding: 40px;
+      background: #ffffff10;
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      color: white;
+      animation: slideIn 0.6s ease-out;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(30px); opacity: 0; }
+      to   { transform: translateY(0);   opacity: 1; }
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .logo i {
+      font-size: 28px;
+      color: #ff9500;
+      margin-right: 8px;
+    }
+
+    .logo-text {
+      font-size: 22px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #fff;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 16px;
+      transition: 0.3s ease;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #ff9500;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .input-group label {
+      position: absolute;
+      top: 14px;
+      left: 12px;
+      font-size: 14px;
+      color: #aaa;
+      pointer-events: none;
+      transition: 0.3s ease;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -10px;
+      left: 8px;
+      font-size: 12px;
+      color: #ff9500;
+      background: #1e1e2f;
+      padding: 0 5px;
+      border-radius: 4px;
+    }
+
+    .error-text {
+      color: #ff4d4d;
+      font-size: 13px;
+      margin-top: 4px;
+      display: block;
+      height: 16px;
+    }
+
+    .show-password {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .show-password input[type="checkbox"] {
+      margin-right: 8px;
+      accent-color: #ff9500;
+    }
+
+    .register-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #ff9500;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 12px #ff950066;
+    }
+
+    .register-btn:hover {
+      background: #ff7a00;
+      box-shadow: 0 0 18px #ff9500aa;
+    }
+
+    .bottom-text {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #eee;
+    }
+
+    .bottom-text a {
+      color: #ff9500;
+      text-decoration: none;
+    }
+
+    .input-error {
+      border: 1px solid #ff4d4d !important;
+      animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+
+    .error-icon {
+      position: absolute;
+      right: 12px;
+      top: 14px;
+      color: #ff4d4d;
+      display: none;
+    }
+
+    .success-icon {
+      position: absolute;
+      right: 12px;
+      top: 14px;
+      color: #4CAF50;
+      display: none;
+    }
+
+    /* Success Notification Styles */
+    .success-notification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(46, 125, 50, 0.9);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .success-notification.show {
+      opacity: 1;
+    }
+
+    .success-notification i {
+      margin-right: 12px;
+      font-size: 20px;
+    }
+
+    .success-notification .close-btn {
+      margin-left: 20px;
+      cursor: pointer;
+      font-size: 18px;
+      opacity: 0.8;
+    }
+
+    .success-notification .close-btn:hover {
+      opacity: 1;
+    }
+
+    @keyframes slideDown {
+      from { transform: translate(-50%, -30px); opacity: 0; }
+      to   { transform: translate(-50%, 0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <div class="logo">
+      <i class="fas fa-bolt"></i>
+      <div class="logo-text">Stackly Electronics</div>
+    </div>
+    <h2>Create Your Account</h2>
+    <form id="registerForm">
+      <div class="input-group">
+        <input type="text" id="name" required placeholder=" " />
+        <label>Full Name</label>
+        <i class="fas fa-exclamation-circle error-icon" id="nameErrorIcon"></i>
+        <i class="fas fa-check-circle success-icon" id="nameSuccessIcon"></i>
+        <small id="nameError" class="error-text"></small>
+      </div>
+
+      <div class="input-group">
+        <input type="email" id="email" required placeholder=" " />
+        <label>Email Address</label>
+        <i class="fas fa-exclamation-circle error-icon" id="emailErrorIcon"></i>
+        <i class="fas fa-check-circle success-icon" id="emailSuccessIcon"></i>
+        <small id="emailError" class="error-text"></small>
+      </div>
+
+      <div class="input-group">
+        <input type="tel" id="phone" required placeholder=" " />
+        <label>Mobile Number</label>
+        <i class="fas fa-exclamation-circle error-icon" id="phoneErrorIcon"></i>
+        <i class="fas fa-check-circle success-icon" id="phoneSuccessIcon"></i>
+        <small id="phoneError" class="error-text"></small>
+      </div>
+      
+      <div class="input-group">
+        <input type="password" id="password" required placeholder=" " />
+        <label>Password</label>
+        <i class="fas fa-exclamation-circle error-icon" id="passwordErrorIcon"></i>
+        <i class="fas fa-check-circle success-icon" id="passwordSuccessIcon"></i>
+        <small id="passwordError" class="error-text"></small>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="confirmPassword" required placeholder=" " />
+        <label>Confirm Password</label>
+        <i class="fas fa-exclamation-circle error-icon" id="confirmPasswordErrorIcon"></i>
+        <i class="fas fa-check-circle success-icon" id="confirmPasswordSuccessIcon"></i>
+        <small id="confirmPasswordError" class="error-text"></small>
+      </div>
+
+      <div class="show-password">
+        <input type="checkbox" id="togglePassword" />
+        <label for="togglePassword">Show Password</label>
+      </div>
+
+      <button type="submit" class="register-btn">Register</button>
+    </form>
+
+    <div class="bottom-text">
+      Already have an account? <a href="lg.html">Login Now</a>
+    </div>
+  </div>
+
+  <script>
+    // DOM Elements
+    const registerForm = document.getElementById('registerForm');
+    const togglePassword = document.getElementById('togglePassword');
+    
+    // Input fields
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    
+    // Error elements
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const phoneError = document.getElementById('phoneError');
+    const passwordError = document.getElementById('passwordError');
+    const confirmPasswordError = document.getElementById('confirmPasswordError');
+    
+    // Icons
+    const nameErrorIcon = document.getElementById('nameErrorIcon');
+    const nameSuccessIcon = document.getElementById('nameSuccessIcon');
+    const emailErrorIcon = document.getElementById('emailErrorIcon');
+    const emailSuccessIcon = document.getElementById('emailSuccessIcon');
+    const phoneErrorIcon = document.getElementById('phoneErrorIcon');
+    const phoneSuccessIcon = document.getElementById('phoneSuccessIcon');
+    const passwordErrorIcon = document.getElementById('passwordErrorIcon');
+    const passwordSuccessIcon = document.getElementById('passwordSuccessIcon');
+    const confirmPasswordErrorIcon = document.getElementById('confirmPasswordErrorIcon');
+    const confirmPasswordSuccessIcon = document.getElementById('confirmPasswordSuccessIcon');
+
+    // Show/hide password
+    togglePassword.addEventListener('change', function() {
+      const type = this.checked ? 'text' : 'password';
+      passwordInput.type = type;
+      confirmPasswordInput.type = type;
+    });
+
+    // Real-time validation
+    nameInput.addEventListener('input', validateName);
+    emailInput.addEventListener('input', validateEmail);
+    phoneInput.addEventListener('input', validatePhone);
+    passwordInput.addEventListener('input', validatePassword);
+    confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+
+    // Form submission
+    registerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const isNameValid = validateName();
+      const isEmailValid = validateEmail();
+      const isPhoneValid = validatePhone();
+      const isPasswordValid = validatePassword();
+      const isConfirmPasswordValid = validateConfirmPassword();
+      
+      if (isNameValid && isEmailValid && isPhoneValid && isPasswordValid && isConfirmPasswordValid) {
+        // Form is valid - proceed with registration
+        showSuccessNotification('Registration successful! Welcome to Stackly Electronics');
+        registerForm.reset();
+        resetValidationIcons();
+      } else {
+        // Form is invalid - show error messages
+        showErrorNotification('Please fix the errors in the form');
+      }
+    });
+
+    // Validation functions
+    function validateName() {
+      const value = nameInput.value.trim();
+      const namePattern = /^[A-Za-z ]{3,}$/;
+      
+      if (value === '') {
+        showError(nameInput, nameError, nameErrorIcon, nameSuccessIcon, 'Name is required');
+        return false;
+      }
+      
+      if (!namePattern.test(value)) {
+        showError(nameInput, nameError, nameErrorIcon, nameSuccessIcon, 'Name must be at least 3 letters (no numbers/symbols)');
+        return false;
+      }
+      
+      showSuccess(nameInput, nameError, nameErrorIcon, nameSuccessIcon);
+      return true;
+    }
+
+    function validateEmail() {
+      const value = emailInput.value.trim();
+      const gmailRegex = /^[a-z0-9._%+-]+@gmail\.com$/i;
+      
+      if (value === '') {
+        showError(emailInput, emailError, emailErrorIcon, emailSuccessIcon, 'Email is required');
+        return false;
+      }
+      
+      if (!gmailRegex.test(value)) {
+        showError(emailInput, emailError, emailErrorIcon, emailSuccessIcon, 'Only Gmail addresses are allowed');
+        return false;
+      }
+      
+      showSuccess(emailInput, emailError, emailErrorIcon, emailSuccessIcon);
+      return true;
+    }
+
+    function validatePhone() {
+      const value = phoneInput.value.trim();
+      
+      if (value === '') {
+        showError(phoneInput, phoneError, phoneErrorIcon, phoneSuccessIcon, 'Phone number is required');
+        return false;
+      }
+      
+      if (!/^\d{10}$/.test(value)) {
+        showError(phoneInput, phoneError, phoneErrorIcon, phoneSuccessIcon, 'Must be exactly 10 digits');
+        return false;
+      }
+      
+      showSuccess(phoneInput, phoneError, phoneErrorIcon, phoneSuccessIcon);
+      return true;
+    }
+
+    function validatePassword() {
+      const value = passwordInput.value;
+      
+      if (value === '') {
+        showError(passwordInput, passwordError, passwordErrorIcon, passwordSuccessIcon, 'Password is required');
+        return false;
+      }
+      
+      if (value.length < 8) {
+        showError(passwordInput, passwordError, passwordErrorIcon, passwordSuccessIcon, 'Password must be at least 8 characters');
+        return false;
+      }
+      
+      showSuccess(passwordInput, passwordError, passwordErrorIcon, passwordSuccessIcon);
+      return true;
+    }
+
+    function validateConfirmPassword() {
+      const value = confirmPasswordInput.value;
+      const passwordValue = passwordInput.value;
+      
+      if (value === '') {
+        showError(confirmPasswordInput, confirmPasswordError, confirmPasswordErrorIcon, confirmPasswordSuccessIcon, 'Please confirm your password');
+        return false;
+      }
+      
+      if (value !== passwordValue) {
+        showError(confirmPasswordInput, confirmPasswordError, confirmPasswordErrorIcon, confirmPasswordSuccessIcon, 'Passwords do not match');
+        return false;
+      }
+      
+      showSuccess(confirmPasswordInput, confirmPasswordError, confirmPasswordErrorIcon, confirmPasswordSuccessIcon);
+      return true;
+    }
+
+    // Helper functions
+    function showError(input, errorElement, errorIcon, successIcon, message) {
+      input.classList.add('input-error');
+      errorElement.textContent = message;
+      errorIcon.style.display = 'block';
+      successIcon.style.display = 'none';
+      return false;
+    }
+
+    function showSuccess(input, errorElement, errorIcon, successIcon) {
+      input.classList.remove('input-error');
+      errorElement.textContent = '';
+      errorIcon.style.display = 'none';
+      successIcon.style.display = 'block';
+      return true;
+    }
+
+    function resetValidationIcons() {
+      document.querySelectorAll('.error-icon, .success-icon').forEach(icon => {
+        icon.style.display = 'none';
+      });
+    }
+
+    function showErrorNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'error-notification';
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 10);
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          notification.remove();
+        }, 300);
+      }, 3000);
+    }
+
+    function showSuccessNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'success-notification';
+      notification.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span>${message}</span>
+        <span class="close-btn" onclick="this.parentElement.remove()">&times;</span>
+      `;
+      document.body.appendChild(notification);
+      
+      // Trigger animation
+      setTimeout(() => {
+        notification.style.opacity = '1';
+        notification.style.animation = 'slideDown 0.5s ease-out';
+      }, 10);
+      
+      // Auto-remove after 5 seconds
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+          notification.remove();
+        }, 300);
+      }, 5000);
+    }
+  </script>
+</body>
+</html>

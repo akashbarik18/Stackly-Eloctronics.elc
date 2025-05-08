@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly Electronics - Return Policy</title>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/32/32615.png" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --primary-dark: #5649c0;
+            --secondary: #00cec9;
+            --accent: #fd79a8;
+            --light: #f8f9fa;
+            --dark: #2d3436;
+            --gray: #636e72;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f6ff;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .return-policy {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+            animation: slideUp 0.8s ease;
+        }
+
+        .policy-section {
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .policy-section:nth-child(1) { animation-delay: 0.2s; }
+        .policy-section:nth-child(2) { animation-delay: 0.4s; }
+        .policy-section:nth-child(3) { animation-delay: 0.6s; }
+        .policy-section:nth-child(4) { animation-delay: 0.8s; }
+        .policy-section:nth-child(5) { animation-delay: 1s; }
+
+        .policy-section h2 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .policy-section h2 i {
+            color: var(--secondary);
+        }
+
+        .policy-section p {
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+
+        .policy-section ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--gray);
+        }
+
+        .policy-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background: rgba(108, 92, 231, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+            font-weight: 500;
+            color: var(--primary-dark);
+        }
+
+        .steps-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(108, 92, 231, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.1);
+        }
+
+        .step i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+
+        .step p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .contact-cta {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
+            animation: fadeIn 1s ease;
+        }
+
+        .contact-cta h2 {
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .contact-cta p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: white;
+            color: var(--primary);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .return-policy {
+                padding: 1.5rem;
+            }
+            
+            .policy-section h2 {
+                font-size: 1.3rem;
+            }
+            
+            .steps-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+              
+                <span>Stackly Electronics</span>
+            </div>
+            <h1>Return & Refund Policy</h1>
+            <p class="subtitle">We stand behind our products. If you're not completely satisfied, here's how to return them.</p>
+        </header>
+
+        <div class="return-policy">
+            <div class="policy-section">
+                <h2><i class="fas fa-undo"></i> Return Eligibility</h2>
+                <p>Most items can be returned within <strong>30 days</strong> of delivery. To be eligible:</p>
+                <ul>
+                    <li>Item must be unused and in original packaging</li>
+                    <li>All accessories and documentation must be included</li>
+                    <li>Original proof of purchase is required</li>
+                </ul>
+                <div class="highlight-box">
+                    <p>Note: Some items are final sale (software, gift cards, personalized products).</p>
+                </div>
+            </div>
+
+            <div class="policy-section">
+                <h2><i class="fas fa-boxes"></i> How to Return</h2>
+                <p>Follow these simple steps to return an item:</p>
+                
+                <div class="steps-container">
+                    <div class="step">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <h3>1. Initiate Return</h3>
+                        <p>Log in to your account or use our return portal with your order number</p>
+                    </div>
+                    
+                    <div class="step">
+                        <i class="fas fa-print"></i>
+                        <h3>2. Print Label</h3>
+                        <p>We'll email you a prepaid return shipping label (US only)</p>
+                    </div>
+                    
+                    <div class="step">
+                        <i class="fas fa-shipping-fast"></i>
+                        <h3>3. Ship Item</h3>
+                        <p>Package securely and drop off at any carrier location</p>
+                    </div>
+                    
+                    <div class="step">
+                        <i class="fas fa-dollar-sign"></i>
+                        <h3>4. Get Refund</h3>
+                        <p>Refund processed within 3-5 business days after we receive your return</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="policy-section">
+                <h2><i class="fas fa-money-bill-wave"></i> Refund Process</h2>
+                <ul>
+                    <li>Refunds are issued to the original payment method</li>
+                    <li>Standard returns: Refund includes item price minus shipping</li>
+                    <li>Defective/wrong items: Full refund including shipping</li>
+                    <li>Processing time: 3-5 business days after we receive your return</li>
+                </ul>
+                <p>International customers: Refunds exclude original shipping and customs fees.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2><i class="fas fa-exchange-alt"></i> Exchanges</h2>
+                <p>Need a different size or model? Here's how exchanges work:</p>
+                <ul>
+                    <li>Return the original item following our standard process</li>
+                    <li>Place a new order for the replacement item</li>
+                    <li>Email <strong>exchanges@stackly.com</strong> for price adjustments if the new item costs less</li>
+                </ul>
+                <div class="highlight-box">
+                    <p>Tip: For fastest service, place your new order immediately after initiating the return.</p>
+                </div>
+            </div>
+
+            <div class="policy-section">
+                <h2><i class="fas fa-tools"></i> Warranty Returns</h2>
+                <p>Items still under warranty have special return options:</p>
+                <ul>
+                    <li>2-year limited warranty on all electronics</li>
+                    <li>No restocking fee for warranty claims</li>
+                    <li>Advanced replacement available for registered products</li>
+                    <li>Contact <strong>support@stackly.com</strong> for warranty service</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="contact-cta">
+            <h2>Need Help With a Return?</h2>
+            <p>Our customer service team can assist with any return questions or issues.</p>
+            <a href="cn3.html" class="btn">Start a Return</a>
+        </div>
+
+        <footer>
+            <p>&copy; 2023 Stackly Electronics. All rights reserved.</p>
+            <p>Last updated: October 15, 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

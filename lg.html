@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Stackly Electronics</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+   body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #1e1e2f, #2a2a40);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.login-container {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 40px;
+  background: #ffffff10;
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  color: white;
+  animation: slideIn 0.6s ease-out;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.logo i {
+  font-size: 28px;
+  color: #EAECC6;
+  margin-right: 8px;
+}
+
+.logo-text {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2BC0E4;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2BC0E4;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 12px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+.input-group input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.input-group label {
+  position: absolute;
+  top: 14px;
+  left: 12px;
+  font-size: 14px;
+  color: #aaa;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: -10px;
+  left: 8px;
+  font-size: 12px;
+  color: #e6960c;
+  background: #1e1e2f;
+  padding: 0 5px;
+  border-radius: 4px;
+}
+
+.error-text {
+  color: #ff4d4d;
+  font-size: 13px;
+  margin-top: 4px;
+  display: block;
+}
+
+.show-password {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.show-password input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: #EAECC6;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #EAECC6;
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 12px #ff950066;
+}
+
+.login-btn:disabled {
+  background: #999999;
+  cursor: not-allowed;
+}
+
+.login-btn:hover:enabled {
+  background: #0f4ad3;
+  box-shadow: 0 0 18px #03effcaa;
+}
+
+.bottom-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #eee;
+}
+
+.bottom-text a {
+  color: #ff9500;
+  text-decoration: none;
+}
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="logo">
+      <i class="fas fa-bolt"></i>
+      <div class="logo-text">Stackly Electronics</div>
+    </div>
+    <h2>Login to Your Account</h2>
+    <form id="loginForm" action="index.html" method="POST" onsubmit="return validateEmail()">
+      <div class="input-group">
+        <input type="email" id="email" placeholder=" " required />
+        <label>Email Address</label>
+        <small id="emailError" class="error-text"></small>
+      </div>
+  
+      <div class="input-group">
+        <input type="password" id="password" placeholder=" " required />
+        <label>Password</label>
+      </div>
+  
+      <div class="show-password">
+        <input type="checkbox" id="showPassword" />
+        <label for="showPassword">Show Password</label>
+      </div>
+  
+      <button type="submit" class="login-btn" id="loginBtn" disabled>Login</button>
+    </form>
+  
+    <div class="bottom-text">
+      Don't have an account? <a href="rg.html">Register Now</a>
+    </div>
+  </div>
+  
+  <script>
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const loginBtn = document.getElementById('loginBtn');
+
+    function checkInputs() {
+      const filled = emailInput.value.trim() !== '' && passwordInput.value.trim() !== '';
+      loginBtn.disabled = !filled;
+    }
+
+    emailInput.addEventListener('input', checkInputs);
+    passwordInput.addEventListener('input', checkInputs);
+
+    // Toggle password visibility
+    document.getElementById('showPassword').addEventListener('change', function () {
+      passwordInput.type = this.checked ? 'text' : 'password';
+    });
+
+    // Gmail-only email validation
+    function validateEmail() {
+      const emailError = document.getElementById('emailError');
+      const gmailRegex = /^[a-z0-9._%+-]+@gmail\.com$/;
+
+      if (!gmailRegex.test(emailInput.value.trim())) {
+        emailError.textContent = "Only Gmail addresses are allowed (e.g., user@gmail.com)";
+        return false;
+      } else {
+        emailError.textContent = "";
+        return true;
+      }
+    }
+  </script>
+</body>
+</html>

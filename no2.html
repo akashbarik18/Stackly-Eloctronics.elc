@@ -1,0 +1,2800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop -Stackly Premium Electronics</title>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/32/32615.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #3b82f6;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --success: #10b981;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        /* Style the section */
+.shop-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364); /* Cool dark gradient */
+  color: white;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+/* Floating background container */
+.floating-tech {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  background: url('https://cdn-icons-png.flaticon.com/128/3465/3465702.png') repeat;
+  background-size: 50px 50px;
+  animation: moveBackground 30s linear infinite;
+  opacity: 0.1;
+}
+
+/* Keyframes for floating movement */
+@keyframes moveBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 500px 500px;
+  }
+}
+
+/* Hero content stays above */
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+        
+        /* Header Styles */
+        header {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: 'Poppins', sans-serif; /* Added font family for entire navbar */
+}
+
+.flash-logo {
+    position: relative;
+    width: 32px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.bolt-main {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 16px solid #4a6bff;
+    top: 0;
+    left: 8px;
+    transform: skewX(-10deg);
+}
+
+.bolt-main:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 16px solid #4a6bff;
+    top: 16px;
+    left: -8px;
+}
+
+.bolt-edge {
+    position: absolute;
+    width: 4px;
+    height: 40px;
+    background: #4a6bff;
+    left: 50%;
+    margin-left: -2px;
+    transform: rotate(10deg);
+}
+
+/* Circuit dots */
+.circuit-dots {
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.circuit-dots span {
+    display: block;
+    width: 4px;
+    height: 4px;
+    background: #4a6bff;
+    border-radius: 50%;
+}
+
+/* Animation */
+
+
+
+/* Text styling */
+.logo span {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #4a6bff 0%, #2bdcfd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    transition: color 0.3s;
+    position: relative;
+    font-family: 'Poppins', sans-serif; /* Consistent font for nav links */
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary);
+    transition: width 0.3s;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+  /* Add this CSS to style the cart icon */
+    .cart-icon {
+        position: relative;
+        display: inline-block;
+        margin-left: 20px;
+    }
+    
+    .cart-icon a {
+        display: flex;
+        align-items: center;
+        color: inherit;
+        text-decoration: none;
+    }
+    
+    .cart-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .cart-icon #cartCounter {
+        background: #ff5252;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        margin-left: 5px;
+    }
+    
+    .cart-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+.cart-notification.show {
+    opacity: 1;
+}
+        /* Hero Section */
+        .shop-hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .shop-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .shop-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-btn {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 2px solid white;
+        }
+        
+        .hero-btn:hover {
+            background-color: transparent;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .floating-tech {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .tech-item {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0;
+            animation: floatTech 15s linear infinite;
+        }
+        
+        @keyframes floatTech {
+            0% {
+                transform: translateY(100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.1;
+            }
+            90% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Categories Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+        
+        .categories {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .category-img {
+            height: 200px;
+            background-color: #f0f4f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-img img {
+            max-width: 80%;
+            max-height: 80%;
+            transition: transform 0.5s;
+        }
+        
+        .category-card:hover .category-img img {
+            transform: scale(1.1);
+        }
+        
+        .category-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .category-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-info p {
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+        
+        .shop-btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .shop-btn:hover {
+            background-color: var(--secondary);
+        }
+        
+        /* Featured Products */
+        .featured-products {
+            padding: 5rem 2rem;
+            background-color: #f0f4f8;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--success);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .product-img {
+            height: 220px;
+            background-color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-img img {
+            max-width: 80%;
+            max-height: 80%;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-category {
+            color: var(--primary);
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .product-price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .product-old-price {
+            text-decoration: line-through;
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .add-to-cart {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .add-to-cart:hover {
+            background-color: var(--secondary);
+        }
+        
+        .wishlist-btn {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .wishlist-btn:hover {
+            color: #ef4444;
+        }
+        
+        .rating {
+            color: #f59e0b;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Animated Deals Section */
+.animated-deals {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    position: relative;
+    overflow: hidden;
+}
+
+.deals-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+}
+
+.deals-track {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin: 3rem 0;
+}
+
+.deals-slide {
+    display: flex;
+    gap: 2rem;
+    transition: transform 0.5s ease;
+    will-change: transform;
+}
+
+.deal-card {
+    min-width: 280px;
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    position: relative;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.deal-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.deal-badge {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: #ef4444;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+    z-index: 2;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.deal-img {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.deal-img img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+.deal-card:hover .deal-img img {
+    transform: scale(1.1);
+}
+
+.deal-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--dark);
+}
+
+.deal-price {
+    margin-bottom: 1rem;
+}
+
+.current-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.original-price {
+    font-size: 1rem;
+    color: #9ca3af;
+    text-decoration: line-through;
+    margin-left: 0.5rem;
+}
+
+.deal-btn {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.deal-btn:hover {
+    background: var(--secondary);
+    transform: translateY(-2px);
+}
+
+.deals-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.deals-prev, .deals-next {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    color: var(--primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deals-prev:hover, .deals-next:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Moving background effect */
+.animated-deals::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.1) 50%,
+        rgba(255,255,255,0) 100%
+    );
+    animation: shine 3s infinite;
+    z-index: 1;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Flash animation for new deals */
+@keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.new-deal {
+    animation: flash 1s 3;
+}
+        
+        /* Deals Section */
+      /* Deals Section Styles */
+.deals-section {
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, var(--dark), #111827);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.deal-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    position: relative;
+    z-index: 2;
+}
+
+.deal-img {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    min-height: 300px;
+}
+
+.small-deal-box {
+    width: 210px;
+    height: 140px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 16px;
+    animation: floatBox 3s ease-in-out infinite alternate;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.small-deal-box:hover {
+    transform: scale(1.05);
+    z-index: 3;
+}
+
+.small-deal-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@keyframes floatBox {
+    0% { transform: translateY(0) rotate(-2deg); }
+    100% { transform: translateY(-20px) rotate(2deg); }
+}
+
+.small-deal-box:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.small-deal-box:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.deal-content {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.deal-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.deal-content p {
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+.deal-timer {
+    background: rgba(255,255,255,0.1);
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.timer-item {
+    text-align: center;
+    flex: 1;
+    padding: 0 0.5rem;
+}
+
+.timer-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent);
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.timer-label {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Background elements */
+.deals-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+    animation: rotateBg 20s linear infinite;
+    z-index: 1;
+}
+
+@keyframes rotateBg {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1024px) {
+    .deal-container {
+        gap: 2rem;
+    }
+    
+    .small-deal-box {
+        width: 180px;
+        height: 120px;
+    }
+    
+    .deal-content h2 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .deal-container {
+        flex-direction: column;
+        gap: 3rem;
+    }
+    
+    .deal-img {
+        min-height: auto;
+        gap: 1rem;
+    }
+    
+    .small-deal-box {
+        width: 160px;
+        height: 110px;
+    }
+    
+    .deal-content {
+        text-align: center;
+    }
+    
+    .deal-timer {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .deals-section {
+        padding: 3rem 1.5rem;
+    }
+    
+    .small-deal-box {
+        width: 140px;
+        height: 90px;
+    }
+    
+    .deal-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .deal-content p {
+        font-size: 1rem;
+    }
+    
+    .timer-number {
+        font-size: 1.5rem;
+    }
+    
+    .deal-timer {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .deal-img {
+        gap: 0.8rem;
+    }
+    
+    .small-deal-box {
+        width: 120px;
+        height: 80px;
+    }
+    
+    .deal-timer {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .timer-item {
+        flex: 0 0 calc(50% - 1rem);
+    }
+    
+    .timer-number {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .small-deal-box {
+        width: 100px;
+        height: 70px;
+    }
+    
+    .deal-content h2 {
+        font-size: 1.6rem;
+    }
+    
+    .timer-item {
+        flex: 0 0 100%;
+    }
+}
+
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 4rem;
+            color: rgba(59, 130, 246, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial-text {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .author-info p {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        
+        .rating-stars {
+            color: #f59e0b;
+            margin-bottom: 1rem;
+        }
+        
+        /* Newsletter */
+        /* Tech Updates Section */
+       /* ============================================= */
+/* TECH UPDATES SECTION - STACKLY ELECTRONICS */
+/* ============================================= */
+
+.tech-updates {
+    background-color: #0a192f; /* Deep blue tech background */
+    color: #e6f1ff;
+    padding: 4rem 2rem;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    border-top: 1px solid rgba(100, 255, 218, 0.2);
+    border-bottom: 1px solid rgba(100, 255, 218, 0.2);
+}
+
+.tech-updates-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Header Styles */
+.tech-header {
+    margin-bottom: 2.5rem;
+}
+
+.tech-icon {
+    color: #64ffda; /* Teal accent color */
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 5px rgba(100, 255, 218, 0.3));
+}
+
+.tech-updates h2 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #e6f1ff 0%, #64ffda 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.tech-subtitle {
+    color: #8892b0;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Benefits Grid */
+.tech-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    text-align: left;
+}
+
+.benefit-item {
+    background: rgba(100, 255, 218, 0.05);
+    border: 1px solid rgba(100, 255, 218, 0.1);
+    border-radius: 5px;
+    padding: 1.2rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.benefit-item:hover {
+    background: rgba(100, 255, 218, 0.1);
+    transform: translateY(-3px);
+}
+
+.benefit-badge {
+    font-size: 1.4rem;
+    margin-right: 1rem;
+    min-width: 30px;
+}
+
+/* Form Styles */
+.tech-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.input-group {
+    display: flex;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.tech-input {
+    flex: 1;
+    padding: 0.9rem 1.2rem;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    color: #e6f1ff;
+    font-size: 1rem;
+    border: 1px solid rgba(100, 255, 218, 0.3);
+    border-right: none;
+}
+
+.tech-input::placeholder {
+    color: #8892b0;
+}
+
+.tech-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #64ffda;
+}
+
+.tech-btn {
+    background: linear-gradient(135deg, #64ffda 0%, #00b4a0 100%);
+    color: #0a192f;
+    border: none;
+    padding: 0 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.tech-btn:hover {
+    background: linear-gradient(135deg, #7dffdf 0%, #00c8b0 100%);
+    transform: translateY(-1px);
+}
+
+.tech-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.tech-btn:hover svg {
+    transform: translateX(3px);
+}
+
+.tech-btn.outline {
+    background: transparent;
+    border: 1px solid #64ffda;
+    color: #64ffda;
+    margin-top: 1rem;
+}
+
+.tech-btn.outline:hover {
+    background: rgba(100, 255, 218, 0.1);
+}
+
+.tech-note {
+    color: #8892b0;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+/* Success Message Styles */
+/* Success Message Styles */
+.tech-success-message {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(100, 255, 218, 0.05);
+    border: 1px solid rgba(100, 255, 218, 0.3);
+    border-radius: 8px;
+    margin-top: 1.5rem;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.tech-success-message h3 {
+    color: #64ffda;
+    margin: 1rem 0 0.5rem;
+    font-size: 1.4rem;
+}
+
+.tech-success-message p {
+    color: #ccd6f6;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.tech-success-message #submitted-email {
+    color: #64ffda;
+    font-weight: 500;
+}
+
+.tech-btn.outline {
+    background: transparent;
+    border: 1px solid #64ffda;
+    color: #64ffda;
+}
+
+.tech-btn.outline:hover {
+    background: rgba(100, 255, 218, 0.1);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Form state transitions */
+.tech-form.form-submitted .input-group,
+.tech-form.form-submitted .tech-note {
+    display: none;
+}
+
+.tech-form.form-submitted .tech-success-message {
+    display: block;
+}
+/* Animation Styles */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .tech-updates {
+        padding: 3rem 1.5rem;
+    }
+    
+    .tech-benefits {
+        grid-template-columns: 1fr;
+    }
+    
+    .tech-updates h2 {
+        font-size: 1.8rem;
+    }
+    
+    .input-group {
+        flex-direction: column;
+    }
+    
+    .tech-input {
+        border-right: 1px solid rgba(100, 255, 218, 0.3);
+        border-bottom: none;
+    }
+    
+    .tech-btn {
+        padding: 0.8rem;
+        justify-content: center;
+    }
+    
+    .tech-alert {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .alert-icon {
+        margin-bottom: 0.5rem;
+    }
+}
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-col ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+    .social-icons {
+    display: flex;
+    gap: 1.3rem;
+    margin-bottom: 2rem;
+    margin-top: 18px;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.social-icon:hover {
+    background: var(--accent);
+    transform: translateY(-5px);
+    color: white;
+}
+
+/* Specific colors for each social media on hover */
+.social-icon:nth-child(1):hover { background: #3b5998; } /* Facebook */
+.social-icon:nth-child(2):hover { background: #0a0a0a; } /* Twitter x*/
+.social-icon:nth-child(3):hover { background: #E1306C; } /* Instagram */
+.social-icon:nth-child(4):hover { background: #0c58e3; } /* linkedin */
+        
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .shop-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .deal-container {
+                flex-direction: column;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: 50px;
+                margin-bottom: 1rem;
+            }
+            
+            .newsletter-btn {
+                border-radius: 50px;
+                padding: 0.8rem;
+            }
+        }
+
+        /* Responsive Media Queries */
+/* Desktop (Default styles - no media query needed) */
+
+/* Laptop (1280px and below) */
+@media (max-width: 1280px) {
+    .category-grid, .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    
+    .deal-container {
+        padding: 0 1.5rem;
+    }
+    
+    .testimonial-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+}
+
+/* Small Laptop (1024px and below) */
+@media (max-width: 1024px) {
+    .shop-hero h1 {
+        font-size: 3rem;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+    
+    .navbar {
+        padding: 1rem 1.5rem;
+    }
+    
+    .nav-links {
+        gap: 1.5rem;
+    }
+    
+    .deal-card {
+        min-width: 250px;
+    }
+}
+
+/* Tablet (768px and below) */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .shop-hero {
+        padding: 4rem 1rem;
+    }
+    
+    .shop-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .shop-hero p {
+        font-size: 1.1rem;
+    }
+    
+    .category-grid, .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    .deal-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .small-deal-box {
+        width: 180px;
+        height: 120px;
+    }
+    
+    .testimonial-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .newsletter-form {
+        flex-direction: column;
+    }
+    
+    .newsletter-input {
+        border-radius: 50px;
+        margin-bottom: 1rem;
+    }
+    
+    .newsletter-btn {
+        border-radius: 50px;
+        padding: 0.8rem;
+    }
+    
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* Large Mobile (600px and below) */
+@media (max-width: 600px) {
+    .shop-hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .category-grid, .product-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .category-card, .product-card {
+        max-width: 100%;
+    }
+    
+    .deal-card {
+        min-width: 220px;
+    }
+    
+    .deal-timer {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .timer-item {
+        width: 100%;
+    }
+    
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+    .shop-hero {
+        padding: 3rem 1rem;
+    }
+    
+    .shop-hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .shop-hero p {
+        font-size: 1rem;
+    }
+    
+    .hero-btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+    }
+    
+    .category-img, .product-img {
+        height: 180px;
+    }
+    
+    .small-deal-box {
+        width: 150px;
+        height: 100px;
+    }
+    
+    .deal-content h2 {
+        font-size: 2rem;
+    }
+    
+    .copyright {
+        padding-top: 2rem;
+        margin-top: 2rem;
+    }
+}
+
+/* Small Mobile (360px and below) */
+@media (max-width: 360px) {
+    .shop-hero h1 {
+        font-size: 1.6rem;
+    }
+    
+    .nav-links a {
+        font-size: 0.9rem;
+    }
+    
+    .category-info h3, .product-info h3 {
+        font-size: 1.1rem;
+    }
+    
+    .product-price {
+        font-size: 1.1rem;
+    }
+    
+    .deal-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .timer-number {
+        font-size: 1.5rem;
+    }
+    .deals-container {
+    padding: 0 1rem;
+  }
+
+  .deal-card {
+    min-width: 260px; /* Slightly narrower cards */
+    padding: 1rem;
+    margin: 0 5px; /* Small margin for visual separation */
+  }
+
+  .deal-img {
+    height: 120px; /* Smaller image container */
+  }
+
+  .deal-info h3 {
+    font-size: 1rem; /* Smaller heading */
+  }
+
+  .deal-price {
+    flex-direction: column; /* Stack prices vertically */
+    align-items: flex-start;
+  }
+
+  .current-price {
+    font-size: 1.2rem;
+  }
+
+  .original-price {
+    font-size: 0.9rem;
+    margin-left: 0;
+  }
+
+  .deal-btn {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .deals-controls {
+    margin-top: 1rem;
+  }
+
+  .deals-prev, 
+  .deals-next {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  /* Adjust the carousel track for mobile */
+  .deals-track {
+    margin: 2rem 0;
+  }
+
+  /* Ensure no gaps between cards */
+  .deals-slide {
+    gap: 0;
+  }
+}
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+               
+                <span>Stackly</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="no2.html">Shop</a>
+                <a href="no1.html">About</a>
+                <a href="cn3.html">Contact</a>
+                <a href="ad.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="shop-hero">
+        <div class="floating-tech" id="floating-tech"></div>
+        <div class="hero-content animate__animated animate__fadeIn">
+            <h1>Discover Cutting-Edge Electronics</h1>
+            <p>Explore our premium collection of gadgets, devices, and tech accessories designed to enhance your digital lifestyle.</p>
+            <a href="#featured" class="hero-btn animate__animated animate__pulse animate__infinite animate__slower">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <h2 class="section-title animate-on-scroll">Shop by Category</h2>
+        <p class="section-subtitle animate-on-scroll">Find exactly what you need from our carefully curated tech categories</p>
+        
+        <div class="category-grid">
+            <div class="category-card animate-on-scroll">
+                <div class="category-img">
+                    <img src="https://cdn.pixabay.com/photo/2014/08/05/10/27/iphone-410311_1280.jpg" alt="Smartphones">
+                </div>
+                <div class="category-info">
+                    <h3>Smartphones</h3>
+                    <p>Latest models from top brands</p>
+                    <a href="p1.html" class="shop-btn">Browse</a>
+                </div>
+            </div>
+            
+            <div class="category-card animate-on-scroll" style="transition-delay: 0.1s;">
+                <div class="category-img">
+                    <img src="https://media.istockphoto.com/id/1157329704/photo/flying-tablet-laptop-and-mobile-phone-showing-online-shop-website.jpg?s=612x612&w=0&k=20&c=jdX1yWsNUiTsvHvC0y0OIM-OOFjqQwlcUy_x114HtLQ=" alt="Laptops">
+                </div>
+                <div class="category-info">
+                    <h3>Laptops</h3>
+                    <p>For work and entertainment</p>
+                    <a href="l1.html" class="shop-btn">Browse</a>
+                </div>
+            </div>
+            
+            <div class="category-card animate-on-scroll" style="transition-delay: 0.2s;">
+                <div class="category-img">
+                    <img src="https://media.istockphoto.com/id/1326048286/photo/digital-music-online-listening-entertainment-creative-concept-and-smartphone-with-headphone.jpg?s=612x612&w=0&k=20&c=_kxJgMG2M9T2ARIsqOC2tUyPM5dST5c3tEsXJGaxG14=" alt="Audio">
+                </div>
+                <div class="category-info">
+                    <h3>Audio</h3>
+                    <p>Headphones, speakers, and sound</p>
+                    <a href="h1.html" class="shop-btn">Browse</a>
+                </div>
+            </div>
+            
+            <div class="category-card animate-on-scroll" style="transition-delay: 0.3s;">
+                <div class="category-img">
+                    <img src="https://cdn.pixabay.com/photo/2016/11/19/21/01/analysis-1841158_1280.jpg" alt="Smart Home">
+                </div>
+                <div class="category-info">
+                    <h3>Tablet</h3>
+                    <p>Do the work comfertably</p>
+                    <a href="t1.html" class="shop-btn">Browse</a>
+                </div>
+            </div>
+            
+            <div class="category-card animate-on-scroll" style="transition-delay: 0.4s;">
+                <div class="category-img">
+                    <img src="https://media.istockphoto.com/id/539215939/photo/smart-watch-displaying-apps-icons.jpg?s=612x612&w=0&k=20&c=UDzsj2q3lGPYpYGsPWKahQp09AoAhX21CIV5_8LCtl0=" alt="Wearables">
+                </div>
+                <div class="category-info">
+                    <h3>Wearables</h3>
+                    <p>Smartwatches and fitness trackers</p>
+                    <a href="s1.html" class="shop-btn">Browse</a>
+                </div>
+            </div>
+            
+            <div class="category-card animate-on-scroll" style="transition-delay: 0.5s;">
+                <div class="category-img">
+                    <img src="https://cdn.pixabay.com/photo/2014/11/22/00/51/camera-541213_1280.jpg" alt="Accessories">
+                </div>
+                <div class="category-info">
+                    <h3>Camera</h3>
+                    <p>Click The Moments</p>
+                    <a href="c1.html" class="shop-btn">Browse</a>
+                </div>
+            </div>
+
+            <div class="category-card animate-on-scroll" style="transition-delay: 0.5s;">
+                <div class="category-img">
+                    <img src="https://cdn.pixabay.com/photo/2016/03/19/23/03/handsfree-1267605_1280.jpg" alt="Accessories">
+                </div>
+                <div class="category-info">
+                    <h3>Earbuds</h3>
+                    <p>No more outside noice  </p>
+                    <a href="e1.html" class="shop-btn">Browse</a>
+                </div>
+            </div>
+
+            <div class="category-card animate-on-scroll" style="transition-delay: 0.5s;">
+                <div class="category-img">
+                    <img src="https://cdn.pixabay.com/photo/2015/01/21/14/14/apple-606761_1280.jpg" alt="Accessories">
+                </div>
+                <div class="category-info">
+                    <h3>Desktop</h3>
+                    <p>Think Big Do Big</p>
+                    <a href="d1.html" class="shop-btn">Browse</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products" id="featured">
+        <h2 class="section-title animate-on-scroll">Featured Products</h2>
+        <p class="section-subtitle animate-on-scroll">Our most popular and newest tech gadgets</p>
+        
+        <div class="product-grid">
+            <div class="product-card animate-on-scroll">
+                <span class="product-badge">New</span>
+                <div class="product-img">
+                    <img src="https://cdn.pixabay.com/photo/2022/04/11/17/55/iphone-7126315_1280.jpg" alt="Smartphone X">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Smartphones</span>
+                    <h3>Quantum X Pro</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(128)</span>
+                    </div>
+                    <div class="product-price">$899 <span class="product-old-price">$999</span></div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                        <button class="wishlist-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card animate-on-scroll" style="transition-delay: 0.1s;">
+                <div class="product-img">
+                    <img src="https://media.istockphoto.com/id/1296734570/photo/slim-modern-laptop-with-white-screen-mockup-on-pink-background-with-shadow.jpg?s=612x612&w=0&k=20&c=ykTlOldffg0rY-6M7Rbyoit9MtPw0XIGKTtqEY_9VsA=" alt="Laptop Pro">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Laptops</span>
+                    <h3>NebulaBook Pro</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(96)</span>
+                    </div>
+                    <div class="product-price">$1,299</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                        <button class="wishlist-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card animate-on-scroll" style="transition-delay: 0.2s;">
+                <span class="product-badge">Sale</span>
+                <div class="product-img">
+                    <img src="https://cdn.pixabay.com/photo/2017/07/26/13/43/speakers-2541698_1280.jpg" alt="Wireless Earbuds">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Audio</span>
+                    <h3>SoundBlast Pro</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(245)</span>
+                    </div>
+                    <div class="product-price">$149 <span class="product-old-price">$199</span></div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                        <button class="wishlist-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card animate-on-scroll" style="transition-delay: 0.3s;">
+                <div class="product-img">
+                    <img src="https://cdn.pixabay.com/photo/2023/10/07/14/24/smartwatch-8300238_1280.jpg" alt="Smart Watch">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Wearables</span>
+                    <h3>Pulse 3 Smartwatch</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(187)</span>
+                    </div>
+                    <div class="product-price">$249</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                        <button class="wishlist-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add this section right after your featured products section -->
+<section class="animated-deals">
+    <div class="deals-container">
+        <h2 class="section-title animate-on-scroll">Hot Deals</h2>
+        <p class="section-subtitle animate-on-scroll">Limited-time offers moving fast - grab them before they're gone!</p>
+        
+        <div class="deals-track">
+            <div class="deals-slide">
+                <div class="deal-card">
+                    <div class="deal-badge">50% OFF</div>
+                    <div class="deal-img">
+                        <img src="https://cdn.pixabay.com/photo/2017/10/19/17/56/iphone-2868621_1280.jpg" alt="Smartphone Deal">
+                    </div>
+                    <div class="deal-info">
+                        <h3>Quantum X Pro</h3>
+                        <div class="deal-price">
+                            <span class="current-price">$699</span>
+                            <span class="original-price">$1399</span>
+                        </div>
+                        <a href="of.html">
+                            <button class="deal-btn">Grab Deal</button>
+                          </a>>
+                    </div>
+                </div>
+                
+                <div class="deal-card">
+                    <div class="deal-badge">40% OFF</div>
+                    <div class="deal-img">
+                        <img src="https://cdn.pixabay.com/photo/2015/01/01/23/04/apple-586235_1280.jpg" alt="Laptop Deal">
+                    </div>
+                    <div class="deal-info">
+                        <h3>NebulaBook Pro</h3>
+                        <div class="deal-price">
+                            <span class="current-price">$899</span>
+                            <span class="original-price">$1499</span>
+                        </div>
+                        <a href="of.html">
+                            <button class="deal-btn">Grab Deal</button>
+                          </a>>
+                    </div>
+                </div>
+                
+                <div class="deal-card">
+                    <div class="deal-badge">60% OFF</div>
+                    <div class="deal-img">
+                        <img src="https://cdn.pixabay.com/photo/2018/10/08/01/50/speakers-3731822_1280.jpg" alt="Headphones Deal">
+                    </div>
+                    <div class="deal-info">
+                        <h3>SoundBlast Pro</h3>
+                        <div class="deal-price">
+                            <span class="current-price">$99</span>
+                            <span class="original-price">$249</span>
+                        </div>
+                        <a href="of.html">
+                            <button class="deal-btn">Grab Deal</button>
+                          </a>>
+                    </div>
+                </div>
+                
+                <div class="deal-card">
+                    <div class="deal-badge">35% OFF</div>
+                    <div class="deal-img">
+                        <img src="https://cdn.pixabay.com/photo/2021/07/28/12/56/smartwatch-6500150_1280.jpg" alt="Smartwatch Deal">
+                    </div>
+                    <div class="deal-info">
+                        <h3>Pulse 3 Smartwatch</h3>
+                        <div class="deal-price">
+                            <span class="current-price">$179</span>
+                            <span class="original-price">$275</span>
+                        </div>
+                        <a href="of.html">
+                            <button class="deal-btn">Grab Deal</button>
+                          </a>>
+                    </div>
+                </div>
+                
+                <div class="deal-card">
+                    <div class="deal-badge">45% OFF</div>
+                    <div class="deal-img">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/29/06/18/home-office-1867761_1280.jpg" alt="Tablet Deal">
+                    </div>
+                    <div class="deal-info">
+                        <h3>Galaxy Tab Ultra</h3>
+                        <div class="deal-price">
+                            <span class="current-price">$349</span>
+                            <span class="original-price">$649</span>
+                        </div>
+                        <a href="of.html">
+                            <button class="deal-btn">Grab Deal</button>
+                          </a>>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="deals-controls">
+            <button class="deals-prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="deals-next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+</section>
+
+    <!-- Deals Section -->
+    <section class="deals-section">
+        <div class="deal-container">
+            <div class="deal-img animate-on-scroll">
+                <div class="small-deal-box">
+                    <img src="https://cdn.pixabay.com/photo/2020/10/21/18/07/laptop-5673901_1280.jpg" alt="Laptop">
+                </div>
+                <div class="small-deal-box">
+                    <img src="https://cdn.pixabay.com/photo/2021/09/07/07/11/game-console-6603118_1280.jpg" alt="Phone">
+                </div>
+                <div class="small-deal-box">
+                    <img src="https://cdn.pixabay.com/photo/2015/09/09/20/30/headphones-933157_1280.jpg" alt="Headphones">
+                </div>
+            </div>
+            
+            <div class="deal-content animate-on-scroll" style="transition-delay: 0.2s;">
+                <h2>Flash Sale - Limited Time Offer!</h2>
+                <p>Get our best-selling Quantum X Pro smartphone with 30% discount. This offer expires soon, so don't miss your chance to own this premium device at an unbeatable price.</p>
+                
+                <div class="deal-timer">
+                    <div class="timer-item">
+                        <div class="timer-number" id="days">00</div>
+                        <div class="timer-label">Days</div>
+                    </div>
+                    <div class="timer-item">
+                        <div class="timer-number" id="hours">00</div>
+                        <div class="timer-label">Hours</div>
+                    </div>
+                    <div class="timer-item">
+                        <div class="timer-number" id="minutes">00</div>
+                        <div class="timer-label">Minutes</div>
+                    </div>
+                    <div class="timer-item">
+                        <div class="timer-number" id="seconds">00</div>
+                        <div class="timer-label">Seconds</div>
+                    </div>
+                </div>
+                
+                <a href="of.html" class="hero-btn">Shop Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <h2 class="section-title animate-on-scroll">What Our Customers Say</h2>
+        <p class="section-subtitle animate-on-scroll">Trusted by thousands of tech enthusiasts worldwide</p>
+        
+        <div class="testimonial-grid">
+            <div class="testimonial-card animate-on-scroll">
+                <div class="rating-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">The Quantum X Pro exceeded all my expectations. The camera quality is phenomenal and the battery life lasts me two full days with heavy use.</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah J." class="author-img">
+                    <div class="author-info">
+                        <h4>Sarah Johnson</h4>
+                        <p>Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card animate-on-scroll" style="transition-delay: 0.2s;">
+                <div class="rating-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">I've bought several laptops from TechSphere and they never disappoint. The NebulaBook Pro is lightning fast and perfect for my design work.</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T." class="author-img">
+                    <div class="author-info">
+                        <h4>Michael Thompson</h4>
+                        <p>Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card animate-on-scroll" style="transition-delay: 0.4s;">
+                <div class="rating-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="testimonial-text">The SoundBlast Pro earbuds have incredible sound quality and the battery life is impressive. Best wireless earbuds I've ever owned!</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya K." class="author-img">
+                    <div class="author-info">
+                        <h4>Priya Kapoor</h4>
+                        <p>Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="tech-updates">
+        <div class="tech-updates-container">
+            <div class="tech-header animate-on-scroll">
+                <!-- <svg class="tech-icon" viewBox="0 0 24 24" width="48" height="48">
+                    <path fill="currentColor" d="M17,7H7A5,5 0 0,0 2,12A5,5 0 0,0 7,17H17A5,5 0 0,0 22,12A5,5 0 0,0 17,7M7,15A3,3 0 0,1 4,12A3,3 0 0,1 7,9A3,3 0 0,1 10,12A3,3 0 0,1 7,15Z" />
+                </svg> -->
+                <h2>Tech Insights & Deals</h2>
+                <p class="tech-subtitle" style="transition-delay: 0.1s;">Get circuit-level access to the latest in electronics</p>
+            </div>
+            
+            <div class="tech-benefits animate-on-scroll" style="transition-delay: 0.15s;">
+                <div class="benefit-item">
+                    <span class="benefit-badge">⚡</span>
+                    <span>Fast & Free Shipping – Get Your Gadgets in Record Time!</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-badge">🔧</span>
+                    <span>Smart Tech at Unbeatable Prices – Premium Quality, Budget-Friendly!</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-badge">💰</span>
+                    <span>Hassle-Free Returns & 24/7 Support – Shop with Confidence!   </span>
+                </div>
+            </div>
+            
+            <form class="tech-form animate-on-scroll" style="transition-delay: 0.2s;">
+                <div class="input-group">
+                    <input type="email" id="tech-email" placeholder="engineer@domain.com" class="tech-input" required>
+                    <button type="submit" class="tech-btn" id="subscribe-btn">
+                        <span>Join Now</span>
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
+                        </svg>
+                    </button>
+                </div>
+                <p class="tech-note">We respect your privacy. No spam, just pure tech content.</p>
+                
+                <!-- Success Message -->
+                <div class="tech-success-message">
+                    <svg viewBox="0 0 24 24" width="48" height="48">
+                        <path fill="#64ffda" d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z" />
+                    </svg>
+                    <h3>Subscription Confirmed!</h3>
+                    <p>Welcome to the Stackly community. We've sent a confirmation to <span id="submitted-email"></span></p>
+                    <button class="tech-btn outline" id="back-to-form">
+                        <svg viewBox="0 0 24 24" width="18" height="18">
+                            <path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+                        </svg>
+                        <span>Back to Tech Updates</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+    
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Stackly</h3>
+                <p>Your premier destination for cutting-edge electronics and tech gadgets.</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/share/1BrqaZkJRe/" class="social-icon" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://x.com/The_Stackly" class="social-icon" target="_blank">
+                        <i class="fab fa-x-twitter"></i> <!-- Twitter X -->
+                    </a>
+                    <a href="https://www.instagram.com/thestackly" class="social-icon" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/the-stackly" class="social-icon" target="_blank">
+                        <i class="fab fa-linkedin-in"></i> <!-- LinkedIn -->
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="p1.html">Smartphones</a></li>
+                    <li><a href="l1.html">Laptops</a></li>
+                    <li><a href="h1.html">Audio</a></li>
+                    <li><a href="c1.html">Camera</a></li>
+                    <li><a href="t1.html">Tablet</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="cn3.html">Contact Us</a></li>
+                    <li><a href="faq.html">FAQs</a></li>
+                    <li><a href="sip.html">Shipping Policy</a></li>
+                    <li><a href="Rp.html">Returns & Warranty</a></li>
+                    <li><a href="to.html">Track Order</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="no1.html">About Us</a></li>
+                    <li><a href="bg.html">Blog</a></li>
+                    <li><a href="cr.html">Careers</a></li>
+                    <li><a href="pp.html">Privacy Policy</a></li>
+                    <li><a href="ts.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Stackly. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+       
+//// SHOP PAGE JS - OPTIMIZED
+// ========================
+// DOM Elements
+const DOM = {
+  cartCounters: null,
+  addToCartBtns: null,
+  wishlistBtns: null,
+  dealsCarousel: null,
+  floatingTech: null,
+  animateElements: null,
+  dealsTrack: null
+};
+
+// App State
+const state = {
+  cart: JSON.parse(localStorage.getItem('cart')) || [],
+  scrollY: window.scrollY,
+  deals: {
+    currentPosition: 0,
+    autoScrollInterval: null,
+    isDragging: false,
+    dragStartX: 0,
+    dragCurrentX: 0,
+    cardWidth: 0
+  }
+};
+
+// Initialize the shop page
+function initShopPage() {
+  cacheDOM();
+  setupEventListeners();
+  initializeComponents();
+  updateCartCount();
+}
+
+// Cache DOM elements
+function cacheDOM() {
+  DOM.cartCounters = document.querySelectorAll('.cart-count, #cartCounter');
+  DOM.addToCartBtns = document.querySelectorAll('.add-to-cart');
+  DOM.wishlistBtns = document.querySelectorAll('.wishlist-btn');
+  DOM.dealsCarousel = document.querySelector('.deals-slide');
+  DOM.dealsTrack = document.querySelector('.deals-track');
+  DOM.floatingTech = document.getElementById('floating-tech');
+  DOM.animateElements = document.querySelectorAll('.animate-on-scroll');
+}
+
+// Setup event listeners
+function setupEventListeners() {
+  window.addEventListener('scroll', handleScroll);
+  document.addEventListener('click', handleDocumentClick);
+  
+  // Touch events for mobile swipe
+  if (DOM.dealsTrack) {
+    DOM.dealsTrack.addEventListener('touchstart', handleTouchStart);
+    DOM.dealsTrack.addEventListener('touchmove', handleTouchMove);
+    DOM.dealsTrack.addEventListener('touchend', handleTouchEnd);
+  }
+}
+
+// Handle document click events with delegation
+function handleDocumentClick(e) {
+  // Add to cart button
+  if (e.target.closest('.add-to-cart')) {
+    e.preventDefault();
+    handleAddToCart(e.target.closest('.add-to-cart'));
+  }
+  
+  // Wishlist button
+  if (e.target.closest('.wishlist-btn')) {
+    e.preventDefault();
+    handleWishlistToggle(e.target.closest('.wishlist-btn'));
+  }
+  
+  // Deals carousel navigation
+  if (e.target.closest('.deals-prev')) {
+    handleDealsNavigation('prev');
+  }
+  
+  if (e.target.closest('.deals-next')) {
+    handleDealsNavigation('next');
+  }
+}
+
+// Initialize components
+function initializeComponents() {
+  createFloatingTech();
+  setupCountdownTimer();
+  initDealsCarousel();
+  checkScrollAnimations();
+}
+
+// Floating tech icons
+function createFloatingTech() {
+  if (!DOM.floatingTech) return;
+  
+  const techIcons = ['💻', '📱', '⌚', '🎧', '🔌', '🖥️', '📷', '🎮', '🔋', '🖨️'];
+  const fragment = document.createDocumentFragment();
+  
+  for (let i = 0; i < 15; i++) {
+    const tech = document.createElement('div');
+    tech.className = 'tech-item';
+    tech.textContent = techIcons[Math.floor(Math.random() * techIcons.length)];
+    tech.style.left = `${Math.random() * 100}%`;
+    tech.style.animationDelay = `${Math.random() * 15}s`;
+    fragment.appendChild(tech);
+  }
+  
+  DOM.floatingTech.appendChild(fragment);
+}
+
+// Countdown timer setup
+function setupCountdownTimer() {
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+}
+
+function updateCountdown() {
+  const endDate = new Date();
+  endDate.setDate(endDate.getDate() + 3);
+  
+  const now = new Date().getTime();
+  const distance = endDate - now;
+  
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+  const updateIfExists = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value.toString().padStart(2, '0');
+  };
+  
+  updateIfExists('days', days);
+  updateIfExists('hours', hours);
+  updateIfExists('minutes', minutes);
+  updateIfExists('seconds', seconds);
+}
+
+// Scroll handling
+function handleScroll() {
+  state.scrollY = window.scrollY;
+  checkScrollAnimations();
+}
+
+function checkScrollAnimations() {
+  const windowHeight = window.innerHeight;
+  
+  DOM.animateElements.forEach(el => {
+    const elTop = el.getBoundingClientRect().top;
+    if (elTop < windowHeight - 100) {
+      el.classList.add('visible');
+    }
+  });
+}
+
+// Cart functionality - MADE GLOBALLY ACCESSIBLE
+window.updateCartCount = function() {
+  state.cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const totalItems = state.cart.reduce((total, item) => total + (item.quantity || 1), 0);
+  
+  DOM.cartCounters.forEach(el => {
+    el.textContent = totalItems;
+    if (totalItems > 0) {
+      el.classList.add('pulse');
+      setTimeout(() => el.classList.remove('pulse'), 500);
+    }
+  });
+};
+
+function handleAddToCart(button) {
+  const productCard = button.closest('.product-card');
+  const productName = productCard.querySelector('h3').textContent;
+  const productPriceText = productCard.querySelector('.product-price').textContent;
+  const productPrice = parseFloat(productPriceText.replace(/[^\d.]/g, ''));
+  const productImg = productCard.querySelector('.product-img img').src;
+  
+  // Update cart
+  const existingIndex = state.cart.findIndex(item => item.name === productName);
+  
+  if (existingIndex >= 0) {
+    state.cart[existingIndex].quantity = (state.cart[existingIndex].quantity || 1) + 1;
+  } else {
+    state.cart.push({
+      id: Date.now(),
+      name: productName,
+      price: productPrice,
+      image: productImg,
+      quantity: 1
+    });
+  }
+  
+  // Save and update
+  localStorage.setItem('cart', JSON.stringify(state.cart));
+  updateCartCount();
+  showNotification(`${productName} added to cart!`);
+  animateProductToCart(productCard);
+}
+
+function animateProductToCart(productCard) {
+  const img = productCard.querySelector('.product-img img');
+  const imgClone = img.cloneNode(true);
+  
+  Object.assign(imgClone.style, {
+    position: 'fixed',
+    width: '50px',
+    height: '50px',
+    objectFit: 'contain',
+    top: `${img.getBoundingClientRect().top}px`,
+    left: `${img.getBoundingClientRect().left}px`,
+    zIndex: '1000',
+    transition: 'all 0.8s cubic-bezier(0.65, 0, 0.35, 1)'
+  });
+  
+  document.body.appendChild(imgClone);
+  
+  const cartIcon = document.querySelector('.cart-link') || document.querySelector('.cart-icon');
+  if (cartIcon) {
+    const cartRect = cartIcon.getBoundingClientRect();
+    
+    setTimeout(() => {
+      Object.assign(imgClone.style, {
+        top: `${cartRect.top}px`,
+        left: `${cartRect.left}px`,
+        width: '20px',
+        height: '20px',
+        opacity: '0.5'
+      });
+    }, 10);
+  }
+  
+  setTimeout(() => imgClone.remove(), 800);
+}
+
+// Wishlist functionality
+function handleWishlistToggle(button) {
+  const icon = button.querySelector('i');
+  if (!icon) return;
+  
+  if (icon.classList.contains('far')) {
+    icon.classList.replace('far', 'fas');
+    icon.style.color = '#ef4444';
+    button.animate([
+      { transform: 'scale(1)' },
+      { transform: 'scale(1.3)' },
+      { transform: 'scale(1)' }
+    ], { duration: 500 });
+  } else {
+    icon.classList.replace('fas', 'far');
+    icon.style.color = '#9ca3af';
+  }
+}
+
+// Deals carousel functions
+function initDealsCarousel() {
+  if (!DOM.dealsCarousel) return;
+  
+  const cards = document.querySelectorAll('.deal-card');
+  if (cards.length === 0) return;
+
+  // Calculate card width including any margins/padding
+  const cardStyle = window.getComputedStyle(cards[0]);
+  state.deals.cardWidth = cards[0].offsetWidth + 
+                         parseInt(cardStyle.marginRight) + 
+                         parseInt(cardStyle.marginLeft);
+
+  // Clone all cards and append them for seamless infinite scrolling
+  const cardsArray = Array.from(cards);
+  cardsArray.forEach(card => {
+    const clone = card.cloneNode(true);
+    DOM.dealsCarousel.appendChild(clone);
+  });
+
+  // Start auto-scroll
+  startAutoScroll();
+
+  // Highlight random deals
+  setInterval(() => {
+    const randomIndex = Math.floor(Math.random() * cards.length);
+    cards.forEach(card => card.classList.remove('highlight'));
+    cards[randomIndex].classList.add('highlight');
+  }, 5000);
+
+  // Pause on hover
+  DOM.dealsCarousel.addEventListener('mouseenter', pauseAutoScroll);
+  DOM.dealsCarousel.addEventListener('mouseleave', startAutoScroll);
+}
+
+function startAutoScroll() {
+  if (state.deals.autoScrollInterval) {
+    clearInterval(state.deals.autoScrollInterval);
+  }
+  state.deals.autoScrollInterval = setInterval(() => {
+    scrollDeals(1);
+  }, 3000);
+}
+
+function scrollDeals(amount) {
+  const cards = document.querySelectorAll('.deal-card');
+  if (cards.length === 0) return;
+  
+  // Total width of original cards only
+  const totalWidth = state.deals.cardWidth * (cards.length / 2);
+  
+  // Update position
+  state.deals.currentPosition -= amount * state.deals.cardWidth;
+
+  // When we've scrolled all original cards, jump back to start
+  if (state.deals.currentPosition <= -totalWidth) {
+    // Jump to start without animation
+    state.deals.currentPosition = 0;
+    DOM.dealsCarousel.style.transition = 'none';
+    DOM.dealsCarousel.style.transform = `translateX(${state.deals.currentPosition}px)`;
+    // Force reflow to apply the change immediately
+    void DOM.dealsCarousel.offsetWidth;
+  }
+  
+  // Apply smooth transition
+  DOM.dealsCarousel.style.transition = 'transform 0.5s ease';
+  DOM.dealsCarousel.style.transform = `translateX(${state.deals.currentPosition}px)`;
+}
+
+// Touch event handlers for mobile swipe
+function handleTouchStart(e) {
+  state.deals.isDragging = true;
+  state.deals.dragStartX = e.touches[0].clientX;
+  state.deals.dragCurrentX = state.deals.dragStartX;
+  pauseAutoScroll();
+}
+
+function handleTouchMove(e) {
+  if (!state.deals.isDragging) return;
+  state.deals.dragCurrentX = e.touches[0].clientX;
+  const diff = state.deals.dragCurrentX - state.deals.dragStartX;
+  DOM.dealsCarousel.style.transition = 'none';
+  DOM.dealsCarousel.style.transform = `translateX(${state.deals.currentPosition + diff}px)`;
+}
+
+function handleTouchEnd() {
+  if (!state.deals.isDragging) return;
+  state.deals.isDragging = false;
+  
+  const diff = state.deals.dragCurrentX - state.deals.dragStartX;
+  if (Math.abs(diff) > 50) { // Minimum swipe distance
+    scrollDeals(diff > 0 ? -1 : 1);
+  } else {
+    DOM.dealsCarousel.style.transition = 'transform 0.5s ease';
+    DOM.dealsCarousel.style.transform = `translateX(${state.deals.currentPosition}px)`;
+  }
+  
+  startAutoScroll();
+}
+
+function pauseAutoScroll() {
+  if (state.deals.autoScrollInterval) {
+    clearInterval(state.deals.autoScrollInterval);
+    state.deals.autoScrollInterval = null;
+  }
+}
+
+function handleDealsNavigation(direction) {
+  pauseAutoScroll();
+  scrollDeals(direction === 'prev' ? -1 : 1);
+  startAutoScroll();
+}
+
+// Notification system
+function showNotification(message) {
+  const notification = document.createElement('div');
+  notification.className = 'cart-notification';
+  notification.textContent = message;
+  document.body.appendChild(notification);
+  
+  setTimeout(() => notification.classList.add('show'), 10);
+  setTimeout(() => {
+    notification.classList.remove('show');
+    setTimeout(() => notification.remove(), 300);
+  }, 3000);
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initShopPage);
+
+// Add notification styles if they don't exist
+if (!document.querySelector('style.cart-notification-styles')) {
+  const style = document.createElement('style');
+  style.className = 'cart-notification-styles';
+  style.textContent = `
+    .cart-notification {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+    .cart-notification.show {
+      opacity: 1;
+    }
+  `;
+  document.head.appendChild(style);
+}
+// Newsletter Form Submission
+document.addEventListener('DOMContentLoaded', function () {
+    const newsletterForm = document.querySelector('.tech-form');
+    const subscribeBtn = document.getElementById('subscribe-btn');
+    const techEmailInput = document.getElementById('tech-email');
+    const submittedEmailSpan = document.getElementById('submitted-email');
+    const backToFormBtn = document.getElementById('back-to-form');
+
+    // Create error message container at the top
+    const topError = document.createElement('div');
+    topError.id = "form-top-error";
+    topError.style.color = 'red';
+    topError.style.fontSize = '1rem';
+    topError.style.marginBottom = '10px';
+    newsletterForm.prepend(topError);
+
+    const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = techEmailInput.value.trim();
+
+            // Validate Gmail format
+            if (!gmailPattern.test(email)) {
+                topError.textContent = "❌ Please enter a valid Gmail address (example@gmail.com)";
+                techEmailInput.focus();
+                return;
+            } else {
+                topError.textContent = "";
+            }
+
+            // Show loading
+            const originalBtnHTML = subscribeBtn.innerHTML;
+            subscribeBtn.innerHTML = '<span>Processing...</span>';
+            subscribeBtn.disabled = true;
+
+            // Simulate submission
+            setTimeout(() => {
+                submittedEmailSpan.textContent = email;
+                newsletterForm.classList.add('form-submitted');
+
+                // Reset button
+                subscribeBtn.innerHTML = originalBtnHTML;
+                subscribeBtn.disabled = false;
+            }, 1500);
+        });
+    }
+
+    // Clear error when typing
+    techEmailInput.addEventListener('input', function () {
+        topError.textContent = "";
+    });
+
+    // Back to form functionality
+    if (backToFormBtn) {
+        backToFormBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            const form = this.closest('.tech-form');
+            form.classList.remove('form-submitted');
+            form.reset();
+            topError.textContent = "";
+        });
+    }
+});
+
+
+
+    </script>
+</body>
+</html>

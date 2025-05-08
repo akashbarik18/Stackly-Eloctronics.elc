@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly Electronics Blog</title>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/32/32615.png" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --primary-dark: #5649c0;
+            --secondary: #00cec9;
+            --accent: #fd79a8;
+            --light: #f8f9fa;
+            --dark: #2d3436;
+            --gray: #636e72;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f6ff;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 5px 20px rgba(108, 92, 231, 0.1);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            box-shadow: 0 5px 25px rgba(108, 92, 231, 0.2);
+        }
+
+        .search-bar i {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        .featured-post {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.1);
+            animation: slideUp 0.8s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .featured-image {
+            flex: 1;
+            min-width: 300px;
+            min-height: 300px;
+            background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80') center/cover;
+        }
+
+        .featured-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 2rem;
+        }
+
+        .featured-content .category {
+            display: inline-block;
+            background: rgba(108, 92, 231, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .featured-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .featured-content .excerpt {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .meta {
+            display: flex;
+            gap: 1rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .post-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .post-card:nth-child(1) { animation-delay: 0.2s; }
+        .post-card:nth-child(2) { animation-delay: 0.4s; }
+        .post-card:nth-child(3) { animation-delay: 0.6s; }
+        .post-card:nth-child(4) { animation-delay: 0.8s; }
+        .post-card:nth-child(5) { animation-delay: 1s; }
+        .post-card:nth-child(6) { animation-delay: 1.2s; }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.1);
+        }
+
+        .post-image {
+            height: 200px;
+            background: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post-content .category {
+            display: inline-block;
+            background: rgba(108, 92, 231, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .post-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-dark);
+        }
+
+        .post-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .sidebar h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(108, 92, 231, 0.1);
+        }
+
+        .categories a {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .categories a:hover {
+            color: var(--primary);
+            padding-left: 0.5rem;
+        }
+
+        .categories a i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .newsletter-form input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-form button {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--primary-dark);
+        }
+
+        .blog-container {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .main-content {
+            flex: 2;
+        }
+
+        .sidebar-column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .pagination a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: white;
+            color: var(--gray);
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .pagination a:hover, .pagination a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .featured-post {
+                flex-direction: column;
+            }
+            
+            .featured-image {
+                min-height: 200px;
+            }
+            
+            .blog-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                
+                <span>Stackly Electronics</span>
+            </div>
+            <h1>Tech Insights Blog</h1>
+            <p class="subtitle">Stay updated with the latest in electronics, innovation, and industry trends from our experts.</p>
+            <div class="search-bar">
+                <input type="text" placeholder="Search articles...">
+                <i class="fas fa-search"></i>
+            </div>
+        </header>
+
+        <div class="featured-post">
+            <div class="featured-image"></div>
+            <div class="featured-content">
+                <span class="category">Industry Trends</span>
+                <h2>The Future of Wearable Electronics in 2024</h2>
+                <p class="excerpt">Discover how next-generation wearable tech will revolutionize healthcare, fitness, and daily life with biometric tracking and AI integration.</p>
+                <div class="meta">
+                    <span><i class="far fa-user"></i> Sarah Chen</span>
+                    <span><i class="far fa-calendar"></i> October 12, 2023</span>
+                    <span><i class="far fa-clock"></i> 5 min read</span>
+                </div>
+                <a href="#" class="btn">Read Article</a>
+            </div>
+        </div>
+
+        <div class="blog-container">
+            <div class="main-content">
+                <div class="blog-grid">
+                    <div class="post-card">
+                        <div class="post-image" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');"></div>
+                        <div class="post-content">
+                            <span class="category">Product News</span>
+                            <h3>Introducing Our New Quantum Processor Series</h3>
+                            <p>Learn about the groundbreaking features of our latest processor lineup and what it means for computing power.</p>
+                            <div class="meta">
+                                <span><i class="far fa-calendar"></i> Oct 5, 2023</span>
+                                <span><i class="far fa-clock"></i> 4 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="post-card">
+                        <div class="post-image" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');"></div>
+                        <div class="post-content">
+                            <span class="category">Sustainability</span>
+                            <h3>How We're Reducing E-Waste in 2023</h3>
+                            <p>Our comprehensive approach to sustainable electronics manufacturing and recycling initiatives.</p>
+                            <div class="meta">
+                                <span><i class="far fa-calendar"></i> Sep 28, 2023</span>
+                                <span><i class="far fa-clock"></i> 6 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="post-card">
+                        <div class="post-image" style="background-image: url('https://images.unsplash.com/photo-1624953587687-daf255b6b80a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');"></div>
+                        <div class="post-content">
+                            <span class="category">DIY Guides</span>
+                            <h3>Building Your First IoT Device: A Beginner's Guide</h3>
+                            <p>Step-by-step instructions to create a simple smart device using our development kits.</p>
+                            <div class="meta">
+                                <span><i class="far fa-calendar"></i> Sep 20, 2023</span>
+                                <span><i class="far fa-clock"></i> 8 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="post-card">
+                        <div class="post-image" style="background-image: url('https://images.unsplash.com/photo-1603732551681-2e91159b9dc2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');"></div>
+                        <div class="post-content">
+                            <span class="category">Industry Trends</span>
+                            <h3>The Rise of Edge Computing in Consumer Electronics</h3>
+                            <p>Why processing data locally is becoming crucial for next-gen devices and applications.</p>
+                            <div class="meta">
+                                <span><i class="far fa-calendar"></i> Sep 15, 2023</span>
+                                <span><i class="far fa-clock"></i> 7 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="post-card">
+                        <div class="post-image" style="background-image: url('https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1332&q=80');"></div>
+                        <div class="post-content">
+                            <span class="category">Company News</span>
+                            <h3>Stackly Named "Most Innovative Electronics Company" 2023</h3>
+                            <p>We're honored to receive this prestigious industry award for our groundbreaking work.</p>
+                            <div class="meta">
+                                <span><i class="far fa-calendar"></i> Sep 8, 2023</span>
+                                <span><i class="far fa-clock"></i> 3 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="post-card">
+                        <div class="post-image" style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');"></div>
+                        <div class="post-content">
+                            <span class="category">Technical Deep Dive</span>
+                            <h3>Understanding Neural Processing Units in Modern Devices</h3>
+                            <p>A technical exploration of how NPUs are accelerating AI applications in consumer electronics.</p>
+                            <div class="meta">
+                                <span><i class="far fa-calendar"></i> Aug 30, 2023</span>
+                                <span><i class="far fa-clock"></i> 10 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pagination">
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#"><i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <div class="sidebar-column">
+                <div class="sidebar">
+                    <h3>Categories</h3>
+                    <div class="categories">
+                        <a href="#"><i class="fas fa-microchip"></i> Product News</a>
+                        <a href="#"><i class="fas fa-chart-line"></i> Industry Trends</a>
+                        <a href="#"><i class="fas fa-leaf"></i> Sustainability</a>
+                        <a href="#"><i class="fas fa-tools"></i> DIY Guides</a>
+                        <a href="#"><i class="fas fa-flask"></i> Technical Deep Dives</a>
+                        <a href="#"><i class="fas fa-building"></i> Company News</a>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <h3>Subscribe</h3>
+                    <p style="color: var(--gray); margin-bottom: 1rem;">Get the latest articles delivered to your inbox</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+
+                <div class="sidebar">
+                    <h3>Popular Tags</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        <a href="#" style="display: inline-block; padding: 0.3rem 0.8rem; background: rgba(108, 92, 231, 0.1); color: var(--primary); border-radius: 50px; font-size: 0.8rem; text-decoration: none;">#IoT</a>
+                        <a href="#" style="display: inline-block; padding: 0.3rem 0.8rem; background: rgba(108, 92, 231, 0.1); color: var(--primary); border-radius: 50px; font-size: 0.8rem; text-decoration: none;">#AI</a>
+                        <a href="#" style="display: inline-block; padding: 0.3rem 0.8rem; background: rgba(108, 92, 231, 0.1); color: var(--primary); border-radius: 50px; font-size: 0.8rem; text-decoration: none;">#Wearables</a>
+                        <a href="#" style="display: inline-block; padding: 0.3rem 0.8rem; background: rgba(108, 92, 231, 0.1); color: var(--primary); border-radius: 50px; font-size: 0.8rem; text-decoration: none;">#Sustainability</a>
+                        <a href="#" style="display: inline-block; padding: 0.3rem 0.8rem; background: rgba(108, 92, 231, 0.1); color: var(--primary); border-radius: 50px; font-size: 0.8rem; text-decoration: none;">#5G</a>
+                        <a href="#" style="display: inline-block; padding: 0.3rem 0.8rem; background: rgba(108, 92, 231, 0.1); color: var(--primary); border-radius: 50px; font-size: 0.8rem; text-decoration: none;">#Innovation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2023 Stackly Electronics. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Simple search functionality
+            const searchInput = document.querySelector('.search-bar input');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const posts = document.querySelectorAll('.post-card');
+                
+                posts.forEach(post => {
+                    const title = post.querySelector('h3').textContent.toLowerCase();
+                    const excerpt = post.querySelector('p').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
+                        post.style.display = 'block';
+                    } else {
+                        post.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

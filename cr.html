@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers at Stackly Electronics</title>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/32/32615.png" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --primary-dark: #5649c0;
+            --secondary: #00cec9;
+            --accent: #fd79a8;
+            --light: #f8f9fa;
+            --dark: #2d3436;
+            --gray: #636e72;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f6ff;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
+            animation: slideUp 0.8s ease;
+        }
+
+        .hero h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: white;
+            color: var(--primary);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            margin-left: 1rem;
+        }
+
+        .benefits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .benefit-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .benefit-card:nth-child(1) { animation-delay: 0.2s; }
+        .benefit-card:nth-child(2) { animation-delay: 0.4s; }
+        .benefit-card:nth-child(3) { animation-delay: 0.6s; }
+        .benefit-card:nth-child(4) { animation-delay: 0.8s; }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.1);
+        }
+
+        .benefit-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+
+        .benefit-card p {
+            color: var(--gray);
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 3rem 0;
+            font-size: 2rem;
+            color: var(--primary-dark);
+        }
+
+        .jobs-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+        }
+
+        .job-card {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .job-card:nth-child(1) { animation-delay: 0.2s; }
+        .job-card:nth-child(2) { animation-delay: 0.4s; }
+        .job-card:nth-child(3) { animation-delay: 0.6s; }
+        .job-card:nth-child(4) { animation-delay: 0.8s; }
+
+        .job-card:hover {
+            background: rgba(108, 92, 231, 0.03);
+        }
+
+        .job-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .job-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .job-meta i {
+            font-size: 0.8rem;
+        }
+
+        .job-card .btn {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .culture {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .culture-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .culture-text h2 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .culture-text p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .culture-image {
+            flex: 1;
+            min-width: 300px;
+            background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80') center/cover;
+            border-radius: 15px;
+            min-height: 300px;
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+            
+            .culture-text, .culture-image {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+               
+                <span>Stackly Electronics</span>
+            </div>
+            <h1>Join Our Team</h1>
+            <p class="subtitle">Help us shape the future of electronics with innovative solutions and cutting-edge technology.</p>
+        </header>
+
+        <div class="hero">
+            <h2>Build the Future With Us</h2>
+            <p>At Stackly Electronics, we're passionate about innovation, quality, and creating technology that makes a difference. Join our team of visionaries and engineers who are redefining the electronics industry.</p>
+            <a href="#open-positions" class="btn">View Open Positions</a>
+            <a href="#culture" class="btn btn-secondary">Our Culture</a>
+        </div>
+
+        <div class="benefits">
+            <div class="benefit-card">
+                <i class="fas fa-medal"></i>
+                <h3>Competitive Compensation</h3>
+                <p>We offer industry-leading salaries, bonuses, and stock options for exceptional performance.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Health & Wellness</h3>
+                <p>Comprehensive medical, dental, and vision coverage for you and your family.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Continuous Learning</h3>
+                <p>Annual education stipend and access to top tech conferences and workshops.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <i class="fas fa-balance-scale"></i>
+                <h3>Work-Life Balance</h3>
+                <p>Flexible hours, remote options, and generous PTO to recharge and innovate.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title" id="open-positions">Open Positions</h2>
+
+        <div class="jobs-container">
+            <div class="job-card">
+                <h3>Senior Electronics Engineer</h3>
+                <div class="job-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> San Francisco, CA or Remote</span>
+                    <span><i class="fas fa-briefcase"></i> Full-time</span>
+                    <span><i class="fas fa-layer-group"></i> Engineering</span>
+                </div>
+                <p>Design and develop next-generation electronic components for our flagship products. Lead cross-functional teams in bringing concepts to production.</p>
+                <a href="#" class="btn">Apply Now</a>
+            </div>
+            
+            <div class="job-card">
+                <h3>Product Manager</h3>
+                <div class="job-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> Austin, TX</span>
+                    <span><i class="fas fa-briefcase"></i> Full-time</span>
+                    <span><i class="fas fa-layer-group"></i> Product</span>
+                </div>
+                <p>Define product vision and roadmap for our consumer electronics line. Work closely with engineering, design, and marketing teams.</p>
+                <a href="#" class="btn">Apply Now</a>
+            </div>
+            
+            <div class="job-card">
+                <h3>Quality Assurance Specialist</h3>
+                <div class="job-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> Chicago, IL</span>
+                    <span><i class="fas fa-briefcase"></i> Full-time</span>
+                    <span><i class="fas fa-layer-group"></i> Operations</span>
+                </div>
+                <p>Develop and implement quality control procedures to ensure our products meet the highest industry standards.</p>
+                <a href="#" class="btn">Apply Now</a>
+            </div>
+            
+            <div class="job-card">
+                <h3>Technical Support Engineer</h3>
+                <div class="job-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> Remote</span>
+                    <span><i class="fas fa-briefcase"></i> Full-time</span>
+                    <span><i class="fas fa-layer-group"></i> Customer Success</span>
+                </div>
+                <p>Provide exceptional technical support to our customers and partners. Troubleshoot complex hardware and software issues.</p>
+                <a href="#" class="btn">Apply Now</a>
+            </div>
+        </div>
+
+        <div id="culture">
+            <div class="culture">
+                <div class="culture-text">
+                    <h2>Our Culture</h2>
+                    <p>At Stackly Electronics, we believe our people are our greatest asset. We foster an environment of collaboration, innovation, and continuous learning.</p>
+                    <p>Our core values drive everything we do:</p>
+                    <ul style="margin-left: 1.5rem; color: var(--gray); margin-bottom: 1.5rem;">
+                        <li><strong>Innovation First:</strong> We challenge the status quo and push technological boundaries</li>
+                        <li><strong>Customer Obsession:</strong> We design with the end-user in mind</li>
+                        <li><strong>Integrity Always:</strong> We do what's right, even when no one is watching</li>
+                        <li><strong>Teamwork Wins:</strong> We celebrate collective achievements</li>
+                    </ul>
+                    <p>We're proud to be an equal opportunity employer that values diversity and inclusion.</p>
+                </div>
+                <div class="culture-image"></div>
+            </div>
+        </div>
+
+        <div class="contact-cta" style="margin-top: 0;">
+            <h2>Don't See Your Dream Job?</h2>
+            <p>We're always looking for talented individuals. Send us your resume!</p>
+            <a href="cn3.html" class="btn">Contact HR</a>
+        </div>
+
+        <footer>
+            <p>&copy; 2023 Stackly Electronics. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

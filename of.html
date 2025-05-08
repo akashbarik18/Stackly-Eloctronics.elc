@@ -1,0 +1,2333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly - Summer Tech Sale</title>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/32/32615.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #FF7F50 0%, #FF6347 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+        
+        .highlight-offer {
+            background-color: rgba(255,255,255,0.3);
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin: 1rem 0;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+        
+        .timer {
+            background-color: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            margin-top: 0.5rem;
+            font-weight: bold;
+        }
+        .cart-icon {
+        position: relative;
+        display: inline-block;
+        margin-left: 20px;
+    }
+    
+    .cart-icon a {
+        display: flex;
+        align-items: center;
+        color: inherit;
+        text-decoration: none;
+    }
+    
+    .cart-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .cart-icon #cartCounter {
+        background: #ff5252;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        margin-left: 5px;
+    }
+        
+        .cart-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            color: #FF6347;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tab {
+            padding: 0.8rem 1.5rem;
+            background-color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.95rem;
+        }
+        
+        .tab.active, .tab:hover {
+            background: linear-gradient(135deg, #FF7F50 0%, #FF6347 100%);
+            color: white;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            height: 200px;
+            background-color: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .product-image img {
+            max-height: 80%;
+            max-width: 80%;
+            object-fit: contain;
+        }
+        
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff4757;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .current-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #FF6347;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .rating {
+            color: #ffc107;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 0.7rem;
+            background: linear-gradient(135deg, #FF7F50 0%, #FF6347 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .add-to-cart:hover {
+            opacity: 0.9;
+        }
+        
+        .add-to-cart:active {
+            transform: scale(0.98);
+        }
+        
+        .add-to-cart.added::after {
+            content: "✓ Added";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #4CAF50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            background-color: #2d2d2d;
+            color: #aaa;
+            margin-top: 3rem;
+        }
+        
+        .newsletter {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        
+        .newsletter input {
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            width: 250px;
+        }
+        
+        .newsletter button {
+            padding: 0.8rem 1.2rem;
+            background: linear-gradient(135deg, #FF7F50 0%, #FF6347 100%);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tab {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .cart-counter {
+                top: 10px;
+                right: 10px;
+            }
+        }
+        
+        /* Hide products by default */
+        .product-card {
+            display: none;
+        }
+        
+        /* Show all products when All is selected */
+        .show-all .product-card {
+            display: block;
+        }
+        
+        /* Show specific category products */
+        .show-smartphones .smartphone,
+        .show-laptops .laptop,
+        .show-headphones .headphone,
+        .show-watches .watch,
+        .show-tablets .tablet,
+        .show-tvs .tv,
+        .show-speakers .speaker,
+        .show-gaming .gaming {
+            display: block;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+
+        .pagination button {
+            padding: 0.5rem 1rem;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .pagination button.active {
+            background: linear-gradient(135deg, #FF7F50 0%, #FF6347 100%);
+            color: white;
+            border-color: #FF6347;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="cart-icon">
+            <a href="ad.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span id="cartCounter">0</span>
+            </a>
+        </div>
+        <div class="logo">STACKLY</div>
+        <h1>Summer Tech Sale</h1>
+        <div class="subtitle">The hottest deals of the season</div>
+        <div class="highlight-offer">30% OFF ON SELECT ITEMS</div>
+        <div class="timer">Sale Ends in: 2 Days 14 Hours 36 Minutes</div>
+    </header>
+    
+    <div class="notification" id="notification">Item added to cart!</div>
+    
+    <div class="container">
+        <div class="category-tabs">
+            <button class="tab active" data-category="all">All Products</button>
+            <button class="tab" data-category="smartphones">Smartphones</button>
+            <button class="tab" data-category="laptops">Laptops</button>
+            <button class="tab" data-category="headphones">Headphones</button>
+            <button class="tab" data-category="watches">Smart Watches</button>
+            <button class="tab" data-category="tablets">Tablets</button>
+            <button class="tab" data-category="tvs">TVs</button>
+            <button class="tab" data-category="speakers">Speakers</button>
+            <button class="tab" data-category="gaming">Gaming</button>
+        </div>
+        
+        <div class="products-grid show-all" id="products-grid">
+            <!-- Smartphones (20 products) -->
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://cdn.pixabay.com/photo/2022/09/25/22/25/iphones-7479304_1280.jpg" alt="iPhone 13">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">iPhone 13 Pro (128GB)</div>
+                    <div class="product-price">
+                        <span class="current-price">$899</span>
+                        <span class="original-price">$999</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.2)</div>
+                    <button class="add-to-cart" data-product="iPhone 13 Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1369578559/photo/new-samsung-galaxy-s22-ultra-smartphone.jpg?s=612x612&w=0&k=20&c=uXumD4wqBpiBHqSvhjBvtViVCB_NDBltGT5WhH4EEZo=" alt="Samsung Phone">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Samsung Galaxy S22 Ultra</div>
+                    <div class="product-price">
+                        <span class="current-price">$839</span>
+                        <span class="original-price">$1,199</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.5)</div>
+                    <button class="add-to-cart" data-product="Samsung Galaxy S22">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1733641381/photo/new-google-pixel-8-pro-phone.jpg?s=612x612&w=0&k=20&c=ZqAQWs1uPypC42TSzVSJWWV84XLUbEn9o2n_aAru-Gg=" alt="Google Pixel">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Google Pixel 7 Pro</div>
+                    <div class="product-price">
+                        <span class="current-price">$749</span>
+                        <span class="original-price">$899</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="Google Pixel 7 Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1295749491/photo/black-woman-browsing-online-make-up-store.jpg?s=612x612&w=0&k=20&c=8ofWgVeFwNSs1y_koH5kfCmMhlVOxmBIH2Cndx3ZQ8Q=" alt="OnePlus Phone">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">OnePlus 10 Pro</div>
+                    <div class="product-price">
+                        <span class="current-price">$699</span>
+                        <span class="original-price">$799</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="OnePlus 10 Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1313476605/photo/xiaomi-launch-new-smartphone-redmi-note-10-pro.jpg?s=612x612&w=0&k=20&c=vo5uvG6K7Q8ZNkMn2ZkH8K42h5rY3bkklt9tGizduU8=" alt="Xiaomi Phone">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Xiaomi 12 Pro</div>
+                    <div class="product-price">
+                        <span class="current-price">$599</span>
+                        <span class="original-price">$799</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.1)</div>
+                    <button class="add-to-cart" data-product="Xiaomi 12 Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1222768300/photo/new-budget-iphone-se-by-apple-computers-unboxing-on-worldwide-launch-day.jpg?s=612x612&w=0&k=20&c=asQ6VQKkfSQ7_GucQ7sG93NNuehDGOqBeGryP2Fsl8Q=" alt="iPhone SE">
+                    <div class="discount-badge">15% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">iPhone SE (2022)</div>
+                    <div class="product-price">
+                        <span class="current-price">$429</span>
+                        <span class="original-price">$499</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.0)</div>
+                    <button class="add-to-cart" data-product="iPhone SE 2022">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1348369593/photo/galaxy-z-flip-3.jpg?s=612x612&w=0&k=20&c=8NhKdEx_YIfD2ruSGE2nQLmur2qDXLEOaIhUngPWR9U=" alt="Samsung Fold">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Samsung Galaxy Z Flip 4</div>
+                    <div class="product-price">
+                        <span class="current-price">$999</span>
+                        <span class="original-price">$1,199</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="Samsung Z Flip 4">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://cdn.pixabay.com/photo/2016/11/10/16/18/android-1814600_1280.jpg" alt="Asus Phone">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Asus ROG Phone 6</div>
+                    <div class="product-price">
+                        <span class="current-price">$899</span>
+                        <span class="original-price">$1,299</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.8)</div>
+                    <button class="add-to-cart" data-product="Asus ROG Phone 6">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1316898072/photo/oppo-find-x3-pro.jpg?s=612x612&w=0&k=20&c=zoilvNgbJqBbDEJoCMx5MU109y3zqTG_-1OJYhWFVsw=" alt="Oppo Phone">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Oppo Find X5 Pro</div>
+                    <div class="product-price">
+                        <span class="current-price">$899</span>
+                        <span class="original-price">$1,199</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Oppo Find X5 Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1459145472/photo/woman-using-phone-with-white-screen-while-lying-on-sofa-at-home-mock-up-screen.jpg?s=612x612&w=0&k=20&c=SUlOukgHY5vCpKbHxtOWuCkp6EQrUsVrfiFjtiwmvaI=" alt="Nothing Phone">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Nothing Phone (1)</div>
+                    <div class="product-price">
+                        <span class="current-price">$399</span>
+                        <span class="original-price">$499</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.2)</div>
+                    <button class="add-to-cart" data-product="Nothing Phone 1">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://cdn.pixabay.com/photo/2020/11/18/13/51/iphone-12-5755365_1280.jpg" alt="iPhone 14">
+                    <div class="discount-badge">10% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">iPhone 14 Pro Max</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,079</span>
+                        <span class="original-price">$1,199</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.9)</div>
+                    <button class="add-to-cart" data-product="iPhone 14 Pro Max">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/2152857960/photo/smartphone-xiaomi-redmi-note-11-pro-5g-on-a-white-marble-background.jpg?s=612x612&w=0&k=20&c=lzxFdvsILcr4oKPLoWY8RbQc1L8S1UYsf4yKsrYIb58=" alt="Redmi Phone">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Redmi Note 11 Pro</div>
+                    <div class="product-price">
+                        <span class="current-price">$279</span>
+                        <span class="original-price">$399</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.1)</div>
+                    <button class="add-to-cart" data-product="Redmi Note 11 Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1320148212/photo/xiaomi-mi-10t-pro.jpg?s=612x612&w=0&k=20&c=irlZ6yGZu81EBM49uXKMsCTyUJJWYM9LQgA7YDM27VU=" alt="Realme Phone">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Realme GT Neo 3</div>
+                    <div class="product-price">
+                        <span class="current-price">$349</span>
+                        <span class="original-price">$469</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.0)</div>
+                    <button class="add-to-cart" data-product="Realme GT Neo 3">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://cdn.pixabay.com/photo/2016/11/22/23/40/hands-1851218_1280.jpg" alt="Vivo Phone">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Vivo X80 Pro</div>
+                    <div class="product-price">
+                        <span class="current-price">$799</span>
+                        <span class="original-price">$999</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="Vivo X80 Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Honor Phone">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Honor 70 Pro+</div>
+                    <div class="product-price">
+                        <span class="current-price">$599</span>
+                        <span class="original-price">$799</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.2)</div>
+                    <button class="add-to-cart" data-product="Honor 70 Pro+">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg?auto=compress&cs=tinysrgb&w=600" alt="iPhone 12">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">iPhone 12 (128GB)</div>
+                    <div class="product-price">
+                        <span class="current-price">$599</span>
+                        <span class="original-price">$799</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="iPhone 12">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/50614/pexels-photo-50614.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Samsung A53">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Samsung Galaxy A53 5G</div>
+                    <div class="product-price">
+                        <span class="current-price">$349</span>
+                        <span class="original-price">$449</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.0)</div>
+                    <button class="add-to-cart" data-product="Samsung A53 5G">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Pixel 6a">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Google Pixel 6a</div>
+                    <div class="product-price">
+                        <span class="current-price">$399</span>
+                        <span class="original-price">$499</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Google Pixel 6a">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1042143/pexels-photo-1042143.jpeg?auto=compress&cs=tinysrgb&w=600" alt="OnePlus Nord">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">OnePlus Nord 2T</div>
+                    <div class="product-price">
+                        <span class="current-price">$349</span>
+                        <span class="original-price">$499</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.1)</div>
+                    <button class="add-to-cart" data-product="OnePlus Nord 2T">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1293093681/photo/iphone-11-in-white-and-iphone-11-pro-max-in-midnight-green-side-by-side-after-phones-were.jpg?s=612x612&w=0&k=20&c=xPnQS94HxI1JrMumKwLwTGC1d6eMSRFEtVB3CbIkLvU=" alt="iPhone 11">
+                    <div class="discount-badge">35% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">iPhone 11 (64GB)</div>
+                    <div class="product-price">
+                        <span class="current-price">$399</span>
+                        <span class="original-price">$599</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.2)</div>
+                    <button class="add-to-cart" data-product="iPhone 11">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card smartphone">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1152420163/photo/sony-xz-premium-phone-on-the-wooden-table-with-xperia-logo.jpg?s=612x612&w=0&k=20&c=Y01iZ_i-FXOk7Jm1iCOipSR4MRjVdmupEcpV_qbBD8U=" alt="Sony Phone">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Sony Xperia 1 IV</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,049</span>
+                        <span class="original-price">$1,399</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Sony Xperia 1 IV">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Laptops (20 products) -->
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1074074468/photo/apple-macbook-air-2018-in-review.jpg?s=612x612&w=0&k=20&c=kQksBR-NxIht7EpvmVIJNuqlKLsRc_fFTzYQT8EkwjA=" alt="MacBook Pro">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">MacBook Pro M1 (14")</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,499</span>
+                        <span class="original-price">$1,999</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.8)</div>
+                    <button class="add-to-cart" data-product="MacBook Pro M1">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1341138886/photo/computer-laptop-or-notebook-with-mouse-and-pad-on-white-desk-and-mint-green-background-studio.jpg?s=612x612&w=0&k=20&c=ekcQwWA-nJCgQ_kTpy6gQptVgbTKkMob1mgtkVHiY20=" alt="Dell Laptop">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Dell XPS 15 (2022 Model)</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,399</span>
+                        <span class="original-price">$1,999</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Dell XPS 15">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/2152881346/photo/laptop-hp-15-bs157ur-3xy58ea-on-white-background.jpg?s=612x612&w=0&k=20&c=km0VP7D0-TjV2ZFvZb4mn3Nloaz3KVSYYM4hN_QoJHs=" alt="HP Laptop">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">HP Spectre x360 14</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,199</span>
+                        <span class="original-price">$1,499</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="HP Spectre x360">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://cdn.pixabay.com/photo/2016/11/20/09/06/laptop-1842297_1280.jpg" alt="Lenovo Laptop">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Lenovo ThinkPad X1 Carbon</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,349</span>
+                        <span class="original-price">$1,799</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="ThinkPad X1 Carbon">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://cdn.pixabay.com/photo/2016/11/21/15/46/computer-1846056_1280.jpg" alt="Asus Laptop">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Asus ZenBook Pro Duo</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,749</span>
+                        <span class="original-price">$2,499</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.5)</div>
+                    <button class="add-to-cart" data-product="Asus ZenBook Pro Duo">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1511105272/photo/new-apple-macbook-air-laptop-model.jpg?s=612x612&w=0&k=20&c=sKAAVcBiPdkNglsgtW1JDIMGLyBD62a8oYOurRqSGb4=" alt="MacBook Air">
+                    <div class="discount-badge">15% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">MacBook Air M2 (2022)</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,019</span>
+                        <span class="original-price">$1,199</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.8)</div>
+                    <button class="add-to-cart" data-product="MacBook Air M2">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/18105/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600" alt="Surface Laptop">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Microsoft Surface Laptop 5</div>
+                    <div class="product-price">
+                        <span class="current-price">$999</span>
+                        <span class="original-price">$1,249</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Surface Laptop 5">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600" alt="Acer Laptop">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Acer Swift 3 (2022)</div>
+                    <div class="product-price">
+                        <span class="current-price">$749</span>
+                        <span class="original-price">$999</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.1)</div>
+                    <button class="add-to-cart" data-product="Acer Swift 3">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/129208/pexels-photo-129208.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Razer Laptop">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Razer Blade 15 (2022)</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,749</span>
+                        <span class="original-price">$2,499</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="Razer Blade 15">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/109371/pexels-photo-109371.jpeg?auto=compress&cs=tinysrgb&w=600" alt="LG Laptop">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">LG Gram 17 (2022)</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,399</span>
+                        <span class="original-price">$1,749</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="LG Gram 17">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/303383/pexels-photo-303383.jpeg?auto=compress&cs=tinysrgb&w=600" alt="MSI Laptop">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">MSI Stealth GS66</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,799</span>
+                        <span class="original-price">$2,399</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.6)</div>
+                    <button class="add-to-cart" data-product="MSI Stealth GS66">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Alienware Laptop">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Dell Alienware x15 R2</div>
+                    <div class="product-price">
+                        <span class="current-price">$2,099</span>
+                        <span class="original-price">$2,999</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="Alienware x15 R2">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/577210/pexels-photo-577210.jpeg?auto=compress&cs=tinysrgb&w=600" alt="ROG Laptop">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Asus ROG Zephyrus G14</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,199</span>
+                        <span class="original-price">$1,599</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.8)</div>
+                    <button class="add-to-cart" data-product="ROG Zephyrus G14">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/18104/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600" alt="HP Envy">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">HP Envy 13 (2022)</div>
+                    <div class="product-price">
+                        <span class="current-price">$799</span>
+                        <span class="original-price">$999</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.2)</div>
+                    <button class="add-to-cart" data-product="HP Envy 13">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/441963/pexels-photo-441963.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Lenovo Yoga">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Lenovo Yoga 9i (14")</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,199</span>
+                        <span class="original-price">$1,599</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="Lenovo Yoga 9i">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/42408/pexels-photo-42408.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Surface Pro">
+                    <div class="discount-badge">15% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Surface Pro 9 (i5/8GB)</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,019</span>
+                        <span class="original-price">$1,199</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Surface Pro 9">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/3861964/pexels-photo-3861964.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Acer Predator">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Acer Predator Helios 300</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,199</span>
+                        <span class="original-price">$1,699</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.6)</div>
+                    <button class="add-to-cart" data-product="Acer Predator Helios">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1229861/pexels-photo-1229861.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Dell Inspiron">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Dell Inspiron 16 Plus</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,049</span>
+                        <span class="original-price">$1,399</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.2)</div>
+                    <button class="add-to-cart" data-product="Dell Inspiron 16 Plus">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/5703527/pexels-photo-5703527.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Asus VivoBook">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Asus VivoBook S15</div>
+                    <div class="product-price">
+                        <span class="current-price">$699</span>
+                        <span class="original-price">$899</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.1)</div>
+                    <button class="add-to-cart" data-product="Asus VivoBook S15">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/374074/pexels-photo-374074.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Lenovo Legion">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Lenovo Legion 5 Pro</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,399</span>
+                        <span class="original-price">$1,999</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="Lenovo Legion 5 Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/4884118/pexels-photo-4884118.jpeg?auto=compress&cs=tinysrgb&w=600" alt="HP Pavilion">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">HP Pavilion 15 (2022)</div>
+                    <div class="product-price">
+                        <span class="current-price">$599</span>
+                        <span class="original-price">$799</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.0)</div>
+                    <button class="add-to-cart" data-product="HP Pavilion 15">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card laptop">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/4065619/pexels-photo-4065619.jpeg?auto=compress&cs=tinysrgb&w=600" alt="MacBook Pro 16">
+                    <div class="discount-badge">15% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">MacBook Pro 16" M1 Max</div>
+                    <div class="product-price">
+                        <span class="current-price">$2,549</span>
+                        <span class="original-price">$2,999</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.9)</div>
+                    <button class="add-to-cart" data-product="MacBook Pro 16 M1 Max">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Headphones (15 products) -->
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sony Headphones">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Sony WH-1000XM4 Wireless</div>
+                    <div class="product-price">
+                        <span class="current-price">$244</span>
+                        <span class="original-price">$349</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="Sony WH-1000XM4">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1430390678/photo/apple-airpods-pro-2nd-generation-inside-case-next-to-packaging-box.jpg?s=612x612&w=0&k=20&c=2ed88o9jQ0deaQrgIUYnrmjjDnO7WKg2lU8UII3rVMc=" alt="AirPods Pro">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Apple AirPods Pro (2nd Gen)</div>
+                    <div class="product-price">
+                        <span class="current-price">$174</span>
+                        <span class="original-price">$249</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="AirPods Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/815494/pexels-photo-815494.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bose Headphones">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Bose QuietComfort 45</div>
+                    <div class="product-price">
+                        <span class="current-price">$299</span>
+                        <span class="original-price">$399</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.8)</div>
+                    <button class="add-to-cart" data-product="Bose QC45">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/844923/pexels-photo-844923.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sennheiser Headphones">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Sennheiser Momentum 4</div>
+                    <div class="product-price">
+                        <span class="current-price">$319</span>
+                        <span class="original-price">$399</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="Sennheiser Momentum 4">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1037996/pexels-photo-1037996.jpeg?auto=compress&cs=tinysrgb&w=600" alt="JBL Headphones">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">JBL Live 660NC Wireless</div>
+                    <div class="product-price">
+                        <span class="current-price">$139</span>
+                        <span class="original-price">$199</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="JBL Live 660NC">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1490844/pexels-photo-1490844.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Beats Headphones">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Beats Studio Pro Wireless</div>
+                    <div class="product-price">
+                        <span class="current-price">$299</span>
+                        <span class="original-price">$399</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="Beats Studio Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/610945/pexels-photo-610945.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Soundcore Earbuds">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Soundcore Liberty 4 NC</div>
+                    <div class="product-price">
+                        <span class="current-price">$89</span>
+                        <span class="original-price">$129</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.2)</div>
+                    <button class="add-to-cart" data-product="Soundcore Liberty 4">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/3756961/pexels-photo-3756961.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Jabra Earbuds">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Jabra Elite 7 Pro</div>
+                    <div class="product-price">
+                        <span class="current-price">$149</span>
+                        <span class="original-price">$199</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Jabra Elite 7 Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/3783525/pexels-photo-3783525.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sony Earbuds">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Sony WF-1000XM4 Earbuds</div>
+                    <div class="product-price">
+                        <span class="current-price">$199</span>
+                        <span class="original-price">$249</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.6)</div>
+                    <button class="add-to-cart" data-product="Sony WF-1000XM4">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1366478870/photo/airpods-3-generations-on-a-white-background.jpg?s=612x612&w=0&k=20&c=rv2feDpiuw0Mo1bE9zIam9KNlnJ9ZpArrywRLlKvNEM=" alt="Bose Earbuds">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Bose QuietComfort Earbuds II</div>
+                    <div class="product-price">
+                        <span class="current-price">$224</span>
+                        <span class="original-price">$299</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="Bose QC Earbuds II">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1001850/pexels-photo-1001850.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Beats Earbuds">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Beats Fit Pro Wireless</div>
+                    <div class="product-price">
+                        <span class="current-price">$139</span>
+                        <span class="original-price">$199</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Beats Fit Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/3755833/pexels-photo-3755833.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Skullcandy Headphones">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Skullcandy Crusher Evo</div>
+                    <div class="product-price">
+                        <span class="current-price">$149</span>
+                        <span class="original-price">$199</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.2)</div>
+                    <button class="add-to-cart" data-product="Skullcandy Crusher Evo">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/3764004/pexels-photo-3764004.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Soundcore Headphones">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Soundcore Space Q45</div>
+                    <div class="product-price">
+                        <span class="current-price">$139</span>
+                        <span class="original-price">$199</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Soundcore Space Q45">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/3765170/pexels-photo-3765170.jpeg?auto=compress&cs=tinysrgb&w=600" alt="AirPods Max">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Apple AirPods Max</div>
+                    <div class="product-price">
+                        <span class="current-price">$479</span>
+                        <span class="original-price">$599</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="AirPods Max">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1649693/pexels-photo-1649693.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sony LinkBuds">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Sony LinkBuds S</div>
+                    <div class="product-price">
+                        <span class="current-price">$149</span>
+                        <span class="original-price">$199</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Sony LinkBuds S">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card headphone">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/577769/pexels-photo-577769.jpeg?auto=compress&cs=tinysrgb&w=600" alt="JBL Headphones">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">JBL Tour One Wireless</div>
+                    <div class="product-price">
+                        <span class="current-price">$209</span>
+                        <span class="original-price">$299</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="JBL Tour One">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Smart Watches (10 products) -->
+            <div class="product-card watch">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/267391/pexels-photo-267391.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Apple Watch">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Apple Watch Series 8</div>
+                    <div class="product-price">
+                        <span class="current-price">$279</span>
+                        <span class="original-price">$399</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.6)</div>
+                    <button class="add-to-cart" data-product="Apple Watch Series 8">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card watch">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/110471/pexels-photo-110471.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Samsung Watch">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Samsung Galaxy Watch 5</div>
+                    <div class="product-price">
+                        <span class="current-price">$209</span>
+                        <span class="original-price">$299</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Samsung Galaxy Watch 5">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card watch">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/518419/pexels-photo-518419.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Garmin Watch">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Garmin Venu 2 Plus</div>
+                    <div class="product-price">
+                        <span class="current-price">$374</span>
+                        <span class="original-price">$499</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="Garmin Venu 2 Plus">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card watch">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/51011/pexels-photo-51011.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fitbit Watch">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Fitbit Sense 2</div>
+                    <div class="product-price">
+                        <span class="current-price">$239</span>
+                        <span class="original-price">$299</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.2)</div>
+                    <button class="add-to-cart" data-product="Fitbit Sense 2">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card watch">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1080745/pexels-photo-1080745.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Amazfit Watch">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Amazfit GTR 4</div>
+                    <div class="product-price">
+                        <span class="current-price">$139</span>
+                        <span class="original-price">$199</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.1)</div>
+                    <button class="add-to-cart" data-product="Amazfit GTR 4">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card watch">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/2265486/pexels-photo-2265486.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Huawei Watch">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Huawei Watch GT 3 Pro</div>
+                    <div class="product-price">
+                        <span class="current-price">$299</span>
+                        <span class="original-price">$399</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Huawei Watch GT 3 Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card watch">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1334600/pexels-photo-1334600.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fossil Watch">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Fossil Gen 6 Wellness</div>
+                    <div class="product-price">
+                        <span class="current-price">$209</span>
+                        <span class="original-price">$299</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.0)</div>
+                    <button class="add-to-cart" data-product="Fossil Gen 6">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card watch">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/4498478/pexels-photo-4498478.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Garmin Watch">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Garmin Forerunner 955</div>
+                    <div class="product-price">
+                        <span class="current-price">$449</span>
+                        <span class="original-price">$599</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.8)</div>
+                    <button class="add-to-cart" data-product="Garmin Forerunner 955">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card watch">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/4498483/pexels-photo-4498483.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Withings Watch">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Withings ScanWatch</div>
+                    <div class="product-price">
+                        <span class="current-price">$279</span>
+                        <span class="original-price">$349</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="Withings ScanWatch">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card watch">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/5083221/pexels-photo-5083221.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Polar Watch">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Polar Pacer Pro</div>
+                    <div class="product-price">
+                        <span class="current-price">$299</span>
+                        <span class="original-price">$399</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Polar Pacer Pro">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Tablets (10 products) -->
+            <div class="product-card tablet">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/221185/pexels-photo-221185.jpeg?auto=compress&cs=tinysrgb&w=600" alt="iPad Pro">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">iPad Pro 12.9" (M2, 128GB)</div>
+                    <div class="product-price">
+                        <span class="current-price">$974</span>
+                        <span class="original-price">$1,099</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.8)</div>
+                    <button class="add-to-cart" data-product="iPad Pro 12.9 M2">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tablet">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1334597/pexels-photo-1334597.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Samsung Tablet">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Samsung Galaxy Tab S8 Ultra</div>
+                    <div class="product-price">
+                        <span class="current-price">$839</span>
+                        <span class="original-price">$1,199</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="Galaxy Tab S8 Ultra">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tablet">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/196649/pexels-photo-196649.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Surface Pro">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Microsoft Surface Pro 9</div>
+                    <div class="product-price">
+                        <span class="current-price">$999</span>
+                        <span class="original-price">$1,249</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="Surface Pro 9">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tablet">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/2320369/pexels-photo-2320369.jpeg?auto=compress&cs=tinysrgb&w=600" alt="iPad Air">
+                    <div class="discount-badge">15% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">iPad Air (M1, 64GB)</div>
+                    <div class="product-price">
+                        <span class="current-price">$509</span>
+                        <span class="original-price">$599</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="iPad Air M1">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tablet">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1251844/pexels-photo-1251844.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Lenovo Tablet">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Lenovo Tab P12 Pro</div>
+                    <div class="product-price">
+                        <span class="current-price">$599</span>
+                        <span class="original-price">$799</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.2)</div>
+                    <button class="add-to-cart" data-product="Lenovo Tab P12 Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tablet">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1110355/pexels-photo-1110355.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Amazon Tablet">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Amazon Fire Max 11</div>
+                    <div class="product-price">
+                        <span class="current-price">$174</span>
+                        <span class="original-price">$249</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.1)</div>
+                    <button class="add-to-cart" data-product="Fire Max 11">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tablet">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/430546/pexels-photo-430546.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Huawei Tablet">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Huawei MatePad Pro 12.6"</div>
+                    <div class="product-price">
+                        <span class="current-price">$749</span>
+                        <span class="original-price">$999</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Huawei MatePad Pro">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tablet">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/187041/pexels-photo-187041.jpeg?auto=compress&cs=tinysrgb&w=600" alt="OnePlus Tablet">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">OnePlus Pad (8GB/128GB)</div>
+                    <div class="product-price">
+                        <span class="current-price">$399</span>
+                        <span class="original-price">$499</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="OnePlus Pad">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tablet">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/2265482/pexels-photo-2265482.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Realme Tablet">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Realme Pad X (6GB/128GB)</div>
+                    <div class="product-price">
+                        <span class="current-price">$299</span>
+                        <span class="original-price">$399</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.0)</div>
+                    <button class="add-to-cart" data-product="Realme Pad X">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tablet">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/2351844/pexels-photo-2351844.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Surface Go">
+                    <div class="discount-badge">15% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Microsoft Surface Go 3</div>
+                    <div class="product-price">
+                        <span class="current-price">$424</span>
+                        <span class="original-price">$499</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.2)</div>
+                    <button class="add-to-cart" data-product="Surface Go 3">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- TVs (10 products) -->
+            <div class="product-card tv">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1444416/pexels-photo-1444416.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Samsung TV">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Samsung QN90B Neo QLED 65"</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,399</span>
+                        <span class="original-price">$1,999</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.8)</div>
+                    <button class="add-to-cart" data-product="Samsung QN90B 65">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tv">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1682519/pexels-photo-1682519.jpeg?auto=compress&cs=tinysrgb&w=600" alt="LG TV">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">LG C2 OLED 55"</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,199</span>
+                        <span class="original-price">$1,599</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.9)</div>
+                    <button class="add-to-cart" data-product="LG C2 OLED 55">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tv">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/2206000219/photo/modern-living-room-and-tv-set.jpg?s=612x612&w=0&k=20&c=WvG5PiU8oJgBE1SlyS8Cr8vAK67yV_aahuD-bYjgaRE=" alt="Sony TV">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Sony A95K QD-OLED 65"</div>
+                    <div class="product-price">
+                        <span class="current-price">$2,799</span>
+                        <span class="original-price">$3,499</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.9)</div>
+                    <button class="add-to-cart" data-product="Sony A95K 65">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tv">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/2196599283/photo/modern-living-room-with-tv-displaying-a-streaming-service-interface-featuring-sci-fi-shows.jpg?s=612x612&w=0&k=20&c=vBJVDrdXp-QqNI5SWRzbVImZfwf-EHwELkJZAbI97hM=" alt="TCL TV">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">TCL 6-Series Roku TV 65"</div>
+                    <div class="product-price">
+                        <span class="current-price">$699</span>
+                        <span class="original-price">$999</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.5)</div>
+                    <button class="add-to-cart" data-product="TCL 6-Series 65">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tv">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/535568617/photo/smart-tv.jpg?s=612x612&w=0&k=20&c=Q6IEPaHqJDI0w3SxyZg2TRODdRVcAsLChyaXBh6FU6g=" alt="Hisense TV">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Hisense U8H 75"</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,499</span>
+                        <span class="original-price">$1,999</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.6)</div>
+                    <button class="add-to-cart" data-product="Hisense U8H 75">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tv">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/2201948882/photo/tv-streaming-app-service-on-screen.jpg?s=612x612&w=0&k=20&c=vmA5QrreDHzk1yLzpH4czPDkVMFHFF8R1fE4SGDH0iE=" alt="Vizio TV">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Vizio OLED 55"</div>
+                    <div class="product-price">
+                        <span class="current-price">$899</span>
+                        <span class="original-price">$1,299</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="Vizio OLED 55">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tv">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/2206000219/photo/modern-living-room-and-tv-set.jpg?s=612x612&w=0&k=20&c=WvG5PiU8oJgBE1SlyS8Cr8vAK67yV_aahuD-bYjgaRE=" alt="LG G2 TV">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">LG G2 OLED 77"</div>
+                    <div class="product-price">
+                        <span class="current-price">$2,999</span>
+                        <span class="original-price">$3,999</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.8)</div>
+                    <button class="add-to-cart" data-product="LG G2 OLED 77">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tv">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/917892968/photo/woman-sitting-on-sofa-using-remote-control.jpg?s=612x612&w=0&k=20&c=P4A0vGBQ-velsC9Sm0s1jpGqigIKJGcfFM-wJ1-qzd8=" alt="Samsung Frame TV">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Samsung The Frame 55"</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,199</span>
+                        <span class="original-price">$1,499</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Samsung The Frame 55">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tv">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/2196599283/photo/modern-living-room-with-tv-displaying-a-streaming-service-interface-featuring-sci-fi-shows.jpg?s=612x612&w=0&k=20&c=vBJVDrdXp-QqNI5SWRzbVImZfwf-EHwELkJZAbI97hM=" alt="Sony X95K TV">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Sony X95K Mini LED 75"</div>
+                    <div class="product-price">
+                        <span class="current-price">$2,999</span>
+                        <span class="original-price">$3,999</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.8)</div>
+                    <button class="add-to-cart" data-product="Sony X95K 75">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card tv">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/509345783/photo/4k-television-display-with-comparison-of-resolutions.jpg?s=612x612&w=0&k=20&c=INH4TzYy9gIpg32PaE5uFrZsEhwyfzEsI3elltl3h_k=" alt="TCL 5-Series TV">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">TCL 5-Series 55"</div>
+                    <div class="product-price">
+                        <span class="current-price">$349</span>
+                        <span class="original-price">$499</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.2)</div>
+                    <button class="add-to-cart" data-product="TCL 5-Series 55">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Speakers (10 products) -->
+            <div class="product-card speaker">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/2651794/pexels-photo-2651794.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sonos Speaker">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Sonos Era 300</div>
+                    <div class="product-price">
+                        <span class="current-price">$399</span>
+                        <span class="original-price">$499</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.8)</div>
+                    <button class="add-to-cart" data-product="Sonos Era 300">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card speaker">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/1706694/pexels-photo-1706694.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bose Speaker">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Bose SoundLink Revolve+ II</div>
+                    <div class="product-price">
+                        <span class="current-price">$299</span>
+                        <span class="original-price">$399</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="Bose SoundLink Revolve+">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card speaker">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/4917455/pexels-photo-4917455.jpeg?auto=compress&cs=tinysrgb&w=600" alt="JBL Speaker">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">JBL PartyBox 310</div>
+                    <div class="product-price">
+                        <span class="current-price">$349</span>
+                        <span class="original-price">$499</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.6)</div>
+                    <button class="add-to-cart" data-product="JBL PartyBox 310">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card speaker">
+                <div class="product-image">
+                    <img src="https://images.pexels.com/photos/191877/pexels-photo-191877.jpeg?auto=compress&cs=tinysrgb&w=600" alt="UE Speaker">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">UE MEGABOOM 3</div>
+                    <div class="product-price">
+                        <span class="current-price">$149</span>
+                        <span class="original-price">$199</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="UE MEGABOOM 3">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card speaker">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/182883783/photo/two-huge-speakers.jpg?s=612x612&w=0&k=20&c=zTfPZvaBig4EkH0V78EFRtbXL-ETdP1EZoSEVzlGQgA=" alt="Echo Speaker">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Amazon Echo Studio</div>
+                    <div class="product-price">
+                        <span class="current-price">$139</span>
+                        <span class="original-price">$199</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Echo Studio">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card speaker">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1058914716/photo/black-bluetooth-speaker-with-lights-on-isolated-in-white-background.jpg?s=612x612&w=0&k=20&c=3hppcPQbF7LWrtIbIhIKwEEkNgKn1EkMTEvApbB2wnw=" alt="Sonos Move">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Sonos Move</div>
+                    <div class="product-price">
+                        <span class="current-price">$319</span>
+                        <span class="original-price">$399</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="Sonos Move">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card speaker">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1327123770/photo/two-sound-speakers-in-neon-light-with-sound-wave.jpg?s=612x612&w=0&k=20&c=19Zfj8kRAixgGNEZmBWv9ZzwdrYIUiIC_27VPtCK9zk=" alt="Soundcore Speaker">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Soundcore Motion Boom Plus</div>
+                    <div class="product-price">
+                        <span class="current-price">$119</span>
+                        <span class="original-price">$159</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="Soundcore Motion Boom+">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card speaker">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1312348330/photo/stereo-audio-system-with-large-speakers-and-amplifier.jpg?s=612x612&w=0&k=20&c=dLTq0BZVP8vA8-RvMZN4uhp_bD2kTKwYoBToqU-Jvbk=" alt="JBL Charge">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">JBL Charge 5</div>
+                    <div class="product-price">
+                        <span class="current-price">$139</span>
+                        <span class="original-price">$199</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.6)</div>
+                    <button class="add-to-cart" data-product="JBL Charge 5">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card speaker">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/578805302/photo/retro-cassette-tape-recorder-on-wooden-table.jpg?s=612x612&w=0&k=20&c=CVgjz2soyH16E4oUOg5_OkPzFpqDyqXxKRA2KiEn1FE=" alt="Bose Smart Speaker">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Bose Smart Speaker 500</div>
+                    <div class="product-price">
+                        <span class="current-price">$299</span>
+                        <span class="original-price">$399</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="Bose Smart Speaker 500">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card speaker">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1443329975/vector/realistic-pink-blue-and-orange-music-speakers-in-the-front-and-isometric-view-on-the-light.jpg?s=612x612&w=0&k=20&c=pMk_CTeTQwDjzcJVtTaTEjsKhxs0CStdo89L95l0dvk=" alt="Google Speaker">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Google Nest Audio</div>
+                    <div class="product-price">
+                        <span class="current-price">$79</span>
+                        <span class="original-price">$99</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.2)</div>
+                    <button class="add-to-cart" data-product="Google Nest Audio">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Gaming (10 products) -->
+            <div class="product-card gaming">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1287173869/photo/new-playstation-5.jpg?s=612x612&w=0&k=20&c=I-yinI43p-zs3nb64Kj_PmhprhsqoAz5cZmYv3lf4xg=" alt="PS5">
+                    <div class="discount-badge">15% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">PlayStation 5 Console</div>
+                    <div class="product-price">
+                        <span class="current-price">$424</span>
+                        <span class="original-price">$499</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.9)</div>
+                    <button class="add-to-cart" data-product="PS5 Console">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card gaming">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1408097208/photo/xbox.jpg?s=612x612&w=0&k=20&c=xaD-fidSW_62niqPVdgM0RF5_yDBkZxz1HrlOgcxTEs=" alt="Xbox Series X">
+                    <div class="discount-badge">10% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Xbox Series X Console</div>
+                    <div class="product-price">
+                        <span class="current-price">$449</span>
+                        <span class="original-price">$499</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.8)</div>
+                    <button class="add-to-cart" data-product="Xbox Series X">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card gaming">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/2106561711/photo/nintendo-switch.jpg?s=612x612&w=0&k=20&c=RBR8uwx48nSMq3FwZVIdT7eZLfWxyeEbDTGo6rtaT6U=" alt="Nintendo Switch">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Nintendo Switch OLED Model</div>
+                    <div class="product-price">
+                        <span class="current-price">$299</span>
+                        <span class="original-price">$349</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="Nintendo Switch OLED">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card gaming">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1560833158/photo/game-controller-with-purple-lit-keyboard-amidst-various-wireless-devices.jpg?s=612x612&w=0&k=20&c=eOYotPVhXSiFkrSLHsDjpUENG3ev7bnbt-iK6RS6KAM=" alt="Steam Deck">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Steam Deck (256GB)</div>
+                    <div class="product-price">
+                        <span class="current-price">$449</span>
+                        <span class="original-price">$599</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.6)</div>
+                    <button class="add-to-cart" data-product="Steam Deck 256GB">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card gaming">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1569930373/photo/oculus-quest-virtual-reality-headset.jpg?s=612x612&w=0&k=20&c=s-jFI2hWSbvTkcXg1MxQpr7u3c3QAL7vmf9p4hTOAss=" alt="Meta Quest">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Meta Quest 2 (128GB)</div>
+                    <div class="product-price">
+                        <span class="current-price">$349</span>
+                        <span class="original-price">$499</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.5)</div>
+                    <button class="add-to-cart" data-product="Meta Quest 2">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card gaming">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1300645090/photo/vr-goggles-headset.jpg?s=612x612&w=0&k=20&c=hL4vdpA34JEEsdKuY9CjTczqfjYKAhGM4X5tw_J1PDU=" alt="PS VR2">
+                    <div class="discount-badge">15% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">PlayStation VR2 Headset</div>
+                    <div class="product-price">
+                        <span class="current-price">$509</span>
+                        <span class="original-price">$599</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                    <button class="add-to-cart" data-product="PS VR2 Headset">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card gaming">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1218727109/photo/the-gamer-girl-playing-video-games.jpg?s=612x612&w=0&k=20&c=1zuGpdH-UQyWNGBXNhNC45YUxz3fXGYfzatxTw8podY=" alt="Logitech Wheel">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Logitech G Pro Racing Wheel</div>
+                    <div class="product-price">
+                        <span class="current-price">$899</span>
+                        <span class="original-price">$1,199</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.8)</div>
+                    <button class="add-to-cart" data-product="Logitech G Pro Wheel">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card gaming">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/1626699712/photo/cpu-fan-image-hd-rgb.jpg?s=612x612&w=0&k=20&c=wjrfsr9QUdRKexZi5WDtcgNjf_5UdnXYylEmZ4Zv1kU=" alt="Razer Keyboard">
+                    <div class="discount-badge">30% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Razer BlackWidow V4 Pro</div>
+                    <div class="product-price">
+                        <span class="current-price">$209</span>
+                        <span class="original-price">$299</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="Razer BlackWidow V4">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card gaming">
+                <div class="product-image">
+                    <img src="https://media.istockphoto.com/id/2157032771/photo/gaming-computer-case-with-led-lights.jpg?s=612x612&w=0&k=20&c=omi7Xk8XQwOltvsI7hp-0FRPRf4jHA90cqLRnL8gp0U=" alt="SteelSeries Mouse">
+                    <div class="discount-badge">20% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">SteelSeries Aerox 9</div>
+                    <div class="product-price">
+                        <span class="current-price">$119</span>
+                        <span class="original-price">$149</span>
+                    </div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                    <button class="add-to-cart" data-product="SteelSeries Aerox 9">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card gaming">
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/300x300?text=ASUS+ROG+Strix" alt="ASUS Monitor">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">ASUS ROG Strix XG27AQM</div>
+                    <div class="product-price">
+                        <span class="current-price">$599</span>
+                        <span class="original-price">$799</span>
+                    </div>
+                    <div class="rating">★★★★★ (4.7)</div>
+                    <button class="add-to-cart" data-product="ASUS ROG Strix Monitor">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pagination">
+            <button class="active">1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>4</button>
+            <button>5</button>
+        </div>
+    </div>
+    
+    <footer>
+        <div>Sign up for Stackly newsletter to get exclusive deals!</div>
+        <div class="newsletter">
+            <input type="email" placeholder="Your email address">
+            <button>Subscribe</button>
+        </div>
+        <div style="margin-top: 1.5rem;">© 2023 Stackly. All rights reserved.</div>
+    </footer>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Initialize cart with validation - matches cart page implementation
+    let cart = [];
+    try {
+        const cartData = localStorage.getItem('cart');
+        cart = cartData ? JSON.parse(cartData) : [];
+        if (!Array.isArray(cart)) {
+            cart = [];
+            localStorage.removeItem('cart');
+        }
+    } catch (e) {
+        console.error('Error parsing cart data:', e);
+        cart = [];
+        localStorage.removeItem('cart');
+    }
+
+    const cartCounter = document.getElementById('cartCounter');
+    const notification = document.getElementById('notification');
+
+    // Update cart counter - matches cart page's data structure
+    function updateCartCounter() {
+        const count = cart.reduce((total, item) => total + (item.quantity || 0), 0);
+        cartCounter.textContent = count;
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    // Add to cart with validation - ensures data matches cart page expectations
+    function addToCart(product) {
+        // Validate product matches cart page structure
+        if (!product || 
+            !product.id || 
+            !product.name || 
+            typeof product.price !== 'number' || 
+            product.price <= 0) {
+            console.error('Invalid product data');
+            return false;
+        }
+
+        // Convert ID to number for consistency with cart page
+        const productId = Number(product.id);
+        if (isNaN(productId)) {
+            console.error('Invalid product ID');
+            return false;
+        }
+
+        const existingIndex = cart.findIndex(item => Number(item.id) === productId);
+
+        if (existingIndex !== -1) {
+            cart[existingIndex].quantity += 1;
+        } else {
+            cart.push({
+                id: productId,
+                name: product.name,
+                price: product.price,
+                image: product.image || 'default-product.jpg',
+                quantity: 1,
+                description: product.description || 'Premium quality product'
+            });
+        }
+
+        updateCartCounter();
+        return true;
+    }
+
+    // Event delegation for add-to-cart buttons
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.add-to-cart')) {
+            const button = e.target.closest('.add-to-cart');
+            const productCard = button.closest('.product-card');
+            if (!productCard) return;
+
+            // Extract product data - ensure it matches cart page structure
+            const priceText = productCard.querySelector('.current-price')?.textContent;
+            const price = parseFloat(priceText?.replace(/[^\d.]/g, '')) || 0;
+            
+            const product = {
+                id: button.dataset.productId || Date.now(), // Use provided ID or generate one
+                name: button.dataset.product?.trim() || 'Unnamed Product',
+                price: price,
+                image: productCard.querySelector('img')?.src || '',
+                description: productCard.querySelector('.product-title')?.textContent || ''
+            };
+
+            if (addToCart(product)) {
+                showAddToCartFeedback(button, product.name);
+            } else {
+                showNotification('Failed to add product to cart');
+            }
+        }
+    });
+
+    function showAddToCartFeedback(button, productName) {
+        const originalText = button.innerHTML;
+        button.classList.add('added');
+        button.disabled = true;
+        button.innerHTML = '<i class="fas fa-check"></i> Added';
+        
+        showNotification(`${productName} added to cart!`);
+        
+        setTimeout(() => {
+            button.classList.remove('added');
+            button.disabled = false;
+            button.innerHTML = originalText;
+        }, 1500);
+    }
+
+    function showNotification(message) {
+        notification.textContent = message;
+        notification.classList.add('show');
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+
+    // Category filtering
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            const category = this.dataset.category;
+            const productsGrid = document.getElementById('products-grid');
+            
+            productsGrid.className = 'products-grid';
+            productsGrid.classList.add(category === 'all' ? 'show-all' : `show-${category}`);
+        });
+    });
+
+    // Countdown timer
+    function updateTimer() {
+        const timerElement = document.querySelector('.timer');
+        if (!timerElement) return;
+
+        const endTime = new Date();
+        endTime.setHours(endTime.getHours() + 48);
+
+        function update() {
+            const now = new Date();
+            const diff = endTime - now;
+
+            if (diff <= 0) {
+                timerElement.textContent = "Sale has ended!";
+                return;
+            }
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            timerElement.textContent = `Sale Ends in: ${hours} Hours ${minutes} Minutes`;
+        }
+
+        update();
+        setInterval(update, 60000);
+    }
+
+    // Initialize
+    updateCartCounter();
+    updateTimer();
+});
+    </script>
+</body>
+</html>
