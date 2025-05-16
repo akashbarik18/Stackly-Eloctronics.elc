@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly Electronics Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --dark: #1b263b;
+            --light: #f8f9fa;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #f72585;
+            --gray: #adb5bd;
+            --dark-gray: #495057;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            height: 100vh;
+            position: fixed;
+            padding: 20px 0;
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-header .logo img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .sidebar-header .logo h2 {
+            font-size: 18px;
+            color: var(--dark);
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-menu {
+            list-style: none;
+            overflow-y: auto;
+            height: calc(100vh - 100px);
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: var(--dark-gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: #f0f7ff;
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .nav-link span {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Section Styles */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-header h2 {
+            font-size: 18px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-header .icon {
+            color: var(--accent);
+        }
+
+        .card-header .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #d1145a;
+        }
+
+        /* Dashboard Section */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        .overview-cards {
+            grid-column: span 12;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .overview-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .overview-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .overview-card h3 {
+            font-size: 14px;
+            color: var(--dark-gray);
+            margin-bottom: 10px;
+        }
+
+        .overview-card .value {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .overview-card .change {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .change.up {
+            color: #2ecc71;
+        }
+
+        .change.down {
+            color: var(--danger);
+        }
+
+        /* Customer Section */
+        .customer-search {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .customer-search input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .customer-search button {
+            padding: 0 20px;
+        }
+
+        .customer-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .customer-table th, .customer-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .customer-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--dark-gray);
+            position: sticky;
+            top: 0;
+        }
+
+        .customer-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .customer-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .customer-actions .btn {
+            padding: 5px 8px;
+        }
+
+        /* Settings Section */
+        .settings-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .settings-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .settings-tab:hover {
+            color: var(--primary);
+        }
+
+        .settings-tab.active {
+            border-bottom: 2px solid var(--primary);
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .settings-content {
+            display: none;
+        }
+
+        .settings-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* EC (Electronic Components) Section */
+        .ec-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .ec-filters select, .ec-filters input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .ec-categories {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .ec-category {
+            padding: 8px 15px;
+            background-color: #f0f7ff;
+            border-radius: 20px;
+            color: var(--primary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ec-category:hover {
+            background-color: #e0efff;
+        }
+
+        .ec-category.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .ec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .ec-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .ec-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .ec-card-img {
+            height: 150px;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .ec-card-img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .ec-card-body {
+            padding: 15px;
+        }
+
+        .ec-card-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .ec-card-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .ec-card-stock {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .ec-card-stock .badge {
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-success {
+            background-color: #e6fcf5;
+            color: #12b886;
+        }
+
+        .badge-warning {
+            background-color: #fff4e5;
+            color: #f8961e;
+        }
+
+        .badge-danger {
+            background-color: #ffe3e3;
+            color: #e03131;
+        }
+
+        .ec-card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 20px;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-header h3 {
+            font-size: 18px;
+            color: var(--dark);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 70px;
+                overflow: hidden;
+            }
+            .sidebar-header .logo h2, .nav-link span {
+                opacity: 0;
+                width: 0;
+                height: 0;
+                overflow: hidden;
+            }
+            .nav-link {
+                justify-content: center;
+                padding: 12px 0;
+            }
+            .main-content {
+                margin-left: 70px;
+            }
+            .sidebar:hover {
+                width: 250px;
+            }
+            .sidebar:hover .sidebar-header .logo h2,
+            .sidebar:hover .nav-link span {
+                opacity: 1;
+                width: auto;
+                height: auto;
+                overflow: visible;
+            }
+            .sidebar:hover .nav-link {
+                justify-content: flex-start;
+                padding: 12px 20px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .overview-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .ec-filters {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .overview-cards {
+                grid-template-columns: 1fr;
+            }
+            .ec-grid {
+                grid-template-columns: 1fr;
+            }
+            .customer-actions {
+                flex-direction: column;
+            }
+        }
+        /* Media Query for screens below 586px (Mobile) */
+@media (max-width: 586px) {
+  /* Global Styles */
+  body {
+    font-size: 14px;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 60px;
+    overflow: hidden;
+  }
+  .sidebar-header .logo h2, 
+  .nav-link span {
+    display: none;
+  }
+  .nav-link {
+    justify-content: center;
+    padding: 12px 0;
+  }
+  .main-content {
+    margin-left: 60px;
+  }
+
+  /* Header */
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .user-profile {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  /* Dashboard Section */
+  .overview-cards {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .overview-card {
+    padding: 15px;
+  }
+  .overview-card .value {
+    font-size: 24px;
+  }
+
+  /* Charts */
+  .card[style*="grid-column: span 8;"],
+  .card[style*="grid-column: span 4;"],
+  .card[style*="grid-column: span 12;"] {
+    grid-column: span 12 !important;
+  }
+  #salesChart, #projectsChart {
+    height: 200px !important;
+  }
+
+  /* Alerts */
+  .alert {
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  .alert-icon {
+    font-size: 16px;
+  }
+
+  /* EC (Electronic Components) Section */
+  .ec-filters {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ec-filters input,
+  .ec-filters select,
+  .ec-filters button {
+    width: 100%;
+  }
+  .ec-categories {
+    justify-content: center;
+  }
+  .ec-grid {
+    grid-template-columns: 1fr;
+  }
+  .ec-card-img {
+    height: 120px;
+  }
+  .ec-card-actions {
+    flex-direction: column;
+  }
+
+  /* Customers Section */
+  .customer-search {
+    flex-direction: column;
+  }
+  .customer-search input,
+  .customer-search button {
+    width: 100%;
+  }
+  .customer-table {
+    display: block;
+    overflow-x: auto;
+  }
+  .customer-table th, 
+  .customer-table td {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+  .customer-actions {
+    flex-direction: column;
+    gap: 3px;
+  }
+  .quick-actions {
+    justify-content: center;
+  }
+
+  /* Settings Section */
+  .settings-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .settings-tab {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Modals */
+  .modal-content {
+    width: 95%;
+    padding: 15px;
+  }
+  .modal-footer {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+  .modal-footer .btn {
+    width: 100%;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .btn-sm {
+    padding: 4px 8px;
+  }
+
+  /* Tables */
+  table {
+    font-size: 13px;
+  }
+  th, td {
+    padding: 6px 8px;
+  }
+
+  /* Cards */
+  .card {
+    padding: 15px;
+  }
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .card-header .actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-microchip" style="color: #4361ee; font-size: 24px;"></i>
+                <h2>Stackly</h2>
+            </div>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-section="ec">
+                    <i class="fas fa-microchip"></i>
+                    <span>Electronic Components</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-section="customers">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <header>
+                <h1 id="section-title">Dashboard</h1>
+                <div class="user-profile">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Profile">
+                    <span>John Doe</span>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <div class="section active" id="dashboard-section">
+                <div class="dashboard-grid">
+                    <div class="overview-cards">
+                        <div class="overview-card">
+                            <h3>Total Components</h3>
+                            <div class="value" id="total-components">1,250</div>
+                            <div class="change up"><i class="fas fa-arrow-up"></i> 5% from last month</div>
+                        </div>
+                        <div class="overview-card">
+                            <h3>Active Projects</h3>
+                            <div class="value" id="active-projects">5</div>
+                            <div class="change down"><i class="fas fa-arrow-down"></i> 2 from last month</div>
+                        </div>
+                        <div class="overview-card">
+                            <h3>Customer Orders</h3>
+                            <div class="value" id="customer-orders">24</div>
+                            <div class="change up"><i class="fas fa-arrow-up"></i> 8 from last week</div>
+                        </div>
+                        <div class="overview-card">
+                            <h3>Last Updated</h3>
+                            <div class="value" id="last-updated">Just now</div>
+                            <div class="change"><i class="fas fa-sync-alt"></i> Auto-refresh</div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="grid-column: span 8;">
+                        <div class="card-header">
+                            <h2><i class="fas fa-chart-line icon"></i> Monthly Sales</h2>
+                            <div class="actions">
+                                <button class="btn btn-outline btn-sm" id="export-sales">Export</button>
+                            </div>
+                        </div>
+                        <canvas id="salesChart" height="300"></canvas>
+                    </div>
+
+                    <div class="card" style="grid-column: span 4;">
+                        <div class="card-header">
+                            <h2><i class="fas fa-bell icon"></i> Recent Alerts</h2>
+                            <div class="actions">
+                                <button class="btn btn-outline btn-sm" id="view-all-alerts">View All</button>
+                            </div>
+                        </div>
+                        <div id="alerts-container">
+                            <!-- Alerts will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="card" style="grid-column: span 12;">
+                        <div class="card-header">
+                            <h2><i class="fas fa-project-diagram icon"></i> Recent Projects</h2>
+                            <div class="actions">
+                                <button class="btn btn-primary btn-sm" id="view-all-projects">View All</button>
+                            </div>
+                        </div>
+                        <canvas id="projectsChart" height="100"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Electronic Components Section -->
+            <div class="section" id="ec-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-microchip icon"></i> Electronic Components</h2>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" id="add-component-btn"><i class="fas fa-plus"></i> Add Component</button>
+                        </div>
+                    </div>
+                    <div class="ec-filters">
+                        <input type="text" id="component-search" placeholder="Search components...">
+                        <select id="component-category-filter">
+                            <option value="all">All Categories</option>
+                            <option value="resistors">Resistors</option>
+                            <option value="capacitors">Capacitors</option>
+                            <option value="microcontrollers">Microcontrollers</option>
+                            <option value="sensors">Sensors</option>
+                            <option value="connectors">Connectors</option>
+                        </select>
+                        <button class="btn btn-primary" id="apply-filters">Filter</button>
+                    </div>
+                    <div class="ec-categories">
+                        <div class="ec-category active" data-category="all">All</div>
+                        <div class="ec-category" data-category="resistors">Resistors</div>
+                        <div class="ec-category" data-category="capacitors">Capacitors</div>
+                        <div class="ec-category" data-category="microcontrollers">ICs</div>
+                        <div class="ec-category" data-category="sensors">Sensors</div>
+                        <div class="ec-category" data-category="connectors">Connectors</div>
+                    </div>
+                    <div class="ec-grid" id="components-grid">
+                        <!-- Components will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customers Section -->
+            <div class="section" id="customers-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-users icon"></i> Customers</h2>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" id="add-customer-btn"><i class="fas fa-plus"></i> Add Customer</button>
+                        </div>
+                    </div>
+                    <div class="customer-search">
+                        <input type="text" id="customer-search-input" placeholder="Search customers...">
+                        <button class="btn btn-primary" id="search-customer-btn">Search</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="customer-table" id="customers-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Company</th>
+                                    <th>Email</th>
+                                    <th>Orders</th>
+                                    <th>Last Order</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customers-table-body">
+                                <!-- Customers will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="quick-actions" style="margin-top: 20px;">
+                        <button class="btn btn-outline" id="prev-page-btn" disabled><i class="fas fa-chevron-left"></i> Previous</button>
+                        <span id="page-info" style="margin: 0 15px;">Page 1 of 1</span>
+                        <button class="btn btn-outline" id="next-page-btn" disabled>Next <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="section" id="settings-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-cog icon"></i> Settings</h2>
+                    </div>
+                    <div class="settings-tabs">
+                        <div class="settings-tab active" data-tab="profile">Profile</div>
+                        <div class="settings-tab" data-tab="account">Account</div>
+                        <div class="settings-tab" data-tab="notifications">Notifications</div>
+                        <div class="settings-tab" data-tab="security">Security</div>
+                    </div>
+                    
+                    <div class="settings-content active" id="profile-tab">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" id="first-name" value="John">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" id="last-name" value="Doe">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="email" value="john.doe@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" id="phone" value="+1 (555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label>Company</label>
+                            <input type="text" id="company" value="Stackly Electronics">
+                        </div>
+                        <button class="btn btn-primary" id="save-profile-btn">Save Changes</button>
+                    </div>
+                    
+                    <div class="settings-content" id="account-tab">
+                        <div class="form-group">
+                            <label>Language</label>
+                            <select id="language">
+                                <option value="en">English</option>
+                                <option value="es">Spanish</option>
+                                <option value="fr">French</option>
+                                <option value="de">German</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Timezone</label>
+                            <select id="timezone">
+                                <option value="-5">(UTC-05:00) Eastern Time</option>
+                                <option value="-6">(UTC-06:00) Central Time</option>
+                                <option value="-7">(UTC-07:00) Mountain Time</option>
+                                <option value="-8">(UTC-08:00) Pacific Time</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Theme</label>
+                            <select id="theme">
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                                <option value="system">System</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" id="save-account-btn">Save Preferences</button>
+                    </div>
+                    
+                    <div class="settings-content" id="notifications-tab">
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="email-notifications" checked> Email Notifications
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="stock-alerts" checked> Low Stock Alerts
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="order-notifications" checked> New Order Notifications
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="marketing-communications"> Marketing Communications
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" id="save-notifications-btn">Save Preferences</button>
+                    </div>
+                    
+                    <div class="settings-content" id="security-tab">
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" id="current-password">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="new-password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" id="confirm-password">
+                        </div>
+                        <button class="btn btn-primary" id="change-password-btn">Change Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Component Modal -->
+    <div class="modal" id="component-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="component-modal-title">Add New Component</h3>
+                <button class="modal-close" id="close-component-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Component Name</label>
+                <input type="text" id="component-name">
+            </div>
+            <div class="form-group">
+                <label>Part Number</label>
+                <input type="text" id="component-part-number">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="component-category">
+                        <option value="resistors">Resistors</option>
+                        <option value="capacitors">Capacitors</option>
+                        <option value="microcontrollers">Microcontrollers</option>
+                        <option value="sensors">Sensors</option>
+                        <option value="connectors">Connectors</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Stock Quantity</label>
+                    <input type="number" id="component-quantity" min="0">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="component-description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Image URL</label>
+                <input type="text" id="component-image-url" placeholder="https://example.com/image.jpg">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-component-btn">Cancel</button>
+                <button class="btn btn-primary" id="save-component-btn">Save Component</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Customer Modal -->
+    <div class="modal" id="customer-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="customer-modal-title">Add New Customer</h3>
+                <button class="modal-close" id="close-customer-modal">&times;</button>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" id="customer-first-name">
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" id="customer-last-name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Company</label>
+                <input type="text" id="customer-company">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="customer-email">
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" id="customer-phone">
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <textarea id="customer-address" rows="2"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-customer-btn">Cancel</button>
+                <button class="btn btn-primary" id="save-customer-btn">Save Customer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div class="modal" id="alert-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="alert-modal-title">Alert Details</h3>
+                <button class="modal-close" id="close-alert-modal">&times;</button>
+            </div>
+            <div id="alert-modal-content">
+                <!-- Alert content will be populated here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="close-alert-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize data
+        let components = [];
+        let customers = [];
+        let alerts = [];
+        let currentPage = 1;
+        const itemsPerPage = 5;
+        let editingComponentId = null;
+        let editingCustomerId = null;
+
+        // Load data from localStorage or initialize with sample data
+        function loadData() {
+            // Load components
+            const savedComponents = localStorage.getItem('stackly-components');
+            if (savedComponents) {
+                components = JSON.parse(savedComponents);
+            } else {
+                // Sample components data
+                components = [
+                    {
+                        id: 1,
+                        name: "1KΩ SMD Resistor",
+                        partNumber: "RES-1K-0805",
+                        category: "resistors",
+                        quantity: 450,
+                        description: "Surface mount resistor, 1K ohm, 0805 package",
+                        imageUrl: "https://www.mouser.com/images/resistors/images/te-connectivity-cgs-smd-resistors.jpg"
+                    },
+                    {
+                        id: 2,
+                        name: "100nF Ceramic Capacitor",
+                        partNumber: "CAP-100N-0805",
+                        category: "capacitors",
+                        quantity: 320,
+                        description: "Surface mount ceramic capacitor, 100nF, 0805 package",
+                        imageUrl: "https://www.mouser.com/images/capacitors/images/kemet-mlcc-smd.jpg"
+                    },
+                    {
+                        id: 3,
+                        name: "STM32F103 Microcontroller",
+                        partNumber: "MCU-STM32F103",
+                        category: "microcontrollers",
+                        quantity: 85,
+                        description: "ARM Cortex-M3 microcontroller, 72MHz, 64KB Flash",
+                        imageUrl: "https://www.mouser.com/images/microcontrollers/images/stm32-nucleo-boards.jpg"
+                    },
+                    {
+                        id: 4,
+                        name: "DHT22 Temp/Humidity Sensor",
+                        partNumber: "SEN-DHT22",
+                        category: "sensors",
+                        quantity: 120,
+                        description: "Digital temperature and humidity sensor",
+                        imageUrl: "https://www.mouser.com/images/sensors/images/dht22-temperature-humidity-sensor.jpg"
+                    },
+                    {
+                        id: 5,
+                        name: "USB Type-C Connector",
+                        partNumber: "CON-USB-C",
+                        category: "connectors",
+                        quantity: 200,
+                        description: "Surface mount USB Type-C connector",
+                        imageUrl: "https://www.mouser.com/images/connectors/images/usb-type-c-connectors.jpg"
+                    },
+                    {
+                        id: 6,
+                        name: "10KΩ Potentiometer",
+                        partNumber: "POT-10K",
+                        category: "resistors",
+                        quantity: 150,
+                        description: "10K ohm through-hole potentiometer",
+                        imageUrl: "https://www.mouser.com/images/potentiometers/images/tt-electronics-p160-series.jpg"
+                    }
+                ];
+                localStorage.setItem('stackly-components', JSON.stringify(components));
+            }
+
+            // Load customers
+            const savedCustomers = localStorage.getItem('stackly-customers');
+            if (savedCustomers) {
+                customers = JSON.parse(savedCustomers);
+            } else {
+                // Sample customers data
+                customers = [
+                    {
+                        id: 1,
+                        firstName: "John",
+                        lastName: "Smith",
+                        company: "Tech Solutions Inc.",
+                        email: "john@techsolutions.com",
+                        phone: "+1 (555) 123-4567",
+                        address: "123 Tech Street, San Francisco, CA",
+                        orders: 12,
+                        lastOrder: "2024-05-12"
+                    },
+                    {
+                        id: 2,
+                        firstName: "Sarah",
+                        lastName: "Johnson",
+                        company: "Electro Labs",
+                        email: "sarah@electrolabs.com",
+                        phone: "+1 (555) 234-5678",
+                        address: "456 Circuit Avenue, Boston, MA",
+                        orders: 8,
+                        lastOrder: "2024-05-08"
+                    },
+                    {
+                        id: 3,
+                        firstName: "Michael",
+                        lastName: "Chen",
+                        company: "Gadget Innovations",
+                        email: "michael@gadgetinnov.com",
+                        phone: "+1 (555) 345-6789",
+                        address: "789 Innovation Drive, Austin, TX",
+                        orders: 15,
+                        lastOrder: "2024-05-15"
+                    },
+                    {
+                        id: 4,
+                        firstName: "Emily",
+                        lastName: "Wilson",
+                        company: "Circuit Masters",
+                        email: "emily@circuitmasters.com",
+                        phone: "+1 (555) 456-7890",
+                        address: "321 Electronics Lane, Seattle, WA",
+                        orders: 5,
+                        lastOrder: "2024-05-05"
+                    },
+                    {
+                        id: 5,
+                        firstName: "David",
+                        lastName: "Brown",
+                        company: "Proto Labs",
+                        email: "david@protolabs.com",
+                        phone: "+1 (555) 567-8901",
+                        address: "654 Prototype Road, Chicago, IL",
+                        orders: 7,
+                        lastOrder: "2024-04-28"
+                    }
+                ];
+                localStorage.setItem('stackly-customers', JSON.stringify(customers));
+            }
+
+            // Load alerts
+            const savedAlerts = localStorage.getItem('stackly-alerts');
+            if (savedAlerts) {
+                alerts = JSON.parse(savedAlerts);
+            } else {
+                // Sample alerts data
+                alerts = [
+                    {
+                        id: 1,
+                        type: "warning",
+                        title: "Low stock alert",
+                        message: "Resistors are running low (20 left)",
+                        date: new Date().toISOString(),
+                        read: false
+                    },
+                    {
+                        id: 2,
+                        type: "info",
+                        title: "New customer registration",
+                        message: "Acme Electronics signed up",
+                        date: new Date(Date.now() - 3600000).toISOString(),
+                        read: false
+                    },
+                    {
+                        id: 3,
+                        type: "danger",
+                        title: "Order delayed",
+                        message: "Order #45678 is delayed",
+                        date: new Date(Date.now() - 86400000).toISOString(),
+                        read: false
+                    },
+                    {
+                        id: 4,
+                        type: "warning",
+                        title: "Microcontroller delivery delayed",
+                        message: "ETA: May 20 (originally May 15)",
+                        date: new Date(Date.now() - 172800000).toISOString(),
+                        read: true
+                    },
+                    {
+                        id: 5,
+                        type: "info",
+                        title: "Inventory report generated",
+                        message: "Monthly inventory report is ready",
+                        date: new Date(Date.now() - 259200000).toISOString(),
+                        read: true
+                    }
+                ];
+                localStorage.setItem('stackly-alerts', JSON.stringify(alerts));
+            }
+
+            // Load settings
+            const savedSettings = localStorage.getItem('stackly-settings');
+            if (savedSettings) {
+                const settings = JSON.parse(savedSettings);
+                document.getElementById('first-name').value = settings.firstName || '';
+                document.getElementById('last-name').value = settings.lastName || '';
+                document.getElementById('email').value = settings.email || '';
+                document.getElementById('phone').value = settings.phone || '';
+                document.getElementById('company').value = settings.company || '';
+                document.getElementById('language').value = settings.language || 'en';
+                document.getElementById('timezone').value = settings.timezone || '-5';
+                document.getElementById('theme').value = settings.theme || 'light';
+                document.getElementById('email-notifications').checked = settings.emailNotifications !== false;
+                document.getElementById('stock-alerts').checked = settings.stockAlerts !== false;
+                document.getElementById('order-notifications').checked = settings.orderNotifications !== false;
+                document.getElementById('marketing-communications').checked = settings.marketingCommunications || false;
+            }
+        }
+
+        // Save components to localStorage
+        function saveComponents() {
+            localStorage.setItem('stackly-components', JSON.stringify(components));
+            updateDashboardStats();
+            renderComponents();
+        }
+
+        // Save customers to localStorage
+        function saveCustomers() {
+            localStorage.setItem('stackly-customers', JSON.stringify(customers));
+            updateDashboardStats();
+            renderCustomers();
+        }
+
+        // Save alerts to localStorage
+        function saveAlerts() {
+            localStorage.setItem('stackly-alerts', JSON.stringify(alerts));
+            renderAlerts();
+        }
+
+        // Save settings to localStorage
+        function saveSettings() {
+            const settings = {
+                firstName: document.getElementById('first-name').value,
+                lastName: document.getElementById('last-name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                company: document.getElementById('company').value,
+                language: document.getElementById('language').value,
+                timezone: document.getElementById('timezone').value,
+                theme: document.getElementById('theme').value,
+                emailNotifications: document.getElementById('email-notifications').checked,
+                stockAlerts: document.getElementById('stock-alerts').checked,
+                orderNotifications: document.getElementById('order-notifications').checked,
+                marketingCommunications: document.getElementById('marketing-communications').checked
+            };
+            localStorage.setItem('stackly-settings', JSON.stringify(settings));
+        }
+
+        // Update dashboard statistics
+        function updateDashboardStats() {
+            // Calculate total components
+            const totalComponents = components.reduce((sum, component) => sum + component.quantity, 0);
+            document.getElementById('total-components').textContent = totalComponents.toLocaleString();
+            
+            // Count low stock components (less than 50)
+            const lowStockCount = components.filter(c => c.quantity < 50).length;
+            
+            // Update active projects (hardcoded for this example)
+            document.getElementById('active-projects').textContent = '5';
+            
+            // Update customer orders (sum of all customer orders)
+            const totalOrders = customers.reduce((sum, customer) => sum + customer.orders, 0);
+            document.getElementById('customer-orders').textContent = totalOrders;
+            
+            // Update last updated time
+            document.getElementById('last-updated').textContent = 'Just now';
+        }
+
+        // Render components grid
+        function renderComponents(filterCategory = 'all', searchQuery = '') {
+            const grid = document.getElementById('components-grid');
+            grid.innerHTML = '';
+
+            let filteredComponents = [...components];
+            
+            // Apply category filter
+            if (filterCategory !== 'all') {
+                filteredComponents = filteredComponents.filter(c => c.category === filterCategory);
+            }
+            
+            // Apply search query
+            if (searchQuery) {
+                const query = searchQuery.toLowerCase();
+                filteredComponents = filteredComponents.filter(c => 
+                    c.name.toLowerCase().includes(query) || 
+                    c.partNumber.toLowerCase().includes(query) ||
+                    c.description.toLowerCase().includes(query)
+                );
+            }
+
+            if (filteredComponents.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--gray);">No components found</div>';
+                return;
+            }
+
+            filteredComponents.forEach(component => {
+                const card = document.createElement('div');
+                card.className = 'ec-card';
+                
+                // Determine stock status
+                let stockStatus = 'success';
+                let stockText = 'In Stock';
+                if (component.quantity < 10) {
+                    stockStatus = 'danger';
+                    stockText = 'Out of Stock';
+                } else if (component.quantity < 50) {
+                    stockStatus = 'warning';
+                    stockText = 'Low Stock';
+                }
+                
+                card.innerHTML = `
+                    <div class="ec-card-img">
+                        <img src="${component.imageUrl || 'https://via.placeholder.com/150?text=No+Image'}" alt="${component.name}">
+                    </div>
+                    <div class="ec-card-body">
+                        <div class="ec-card-title">${component.name}</div>
+                        <div class="ec-card-meta">
+                            <span>Part #: ${component.partNumber}</span>
+                            <span>${component.category.charAt(0).toUpperCase() + component.category.slice(1)}</span>
+                        </div>
+                        <div class="ec-card-stock">
+                            <span>Stock: ${component.quantity}</span>
+                            <span class="badge badge-${stockStatus}">${stockText}</span>
+                        </div>
+                        <div class="ec-card-actions">
+                            <button class="btn btn-outline btn-sm edit-component" data-id="${component.id}"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn btn-outline btn-sm delete-component" data-id="${component.id}"><i class="fas fa-trash"></i> Delete</button>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+
+            // Add event listeners to edit and delete buttons
+            document.querySelectorAll('.edit-component').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const componentId = parseInt(this.getAttribute('data-id'));
+                    editComponent(componentId);
+                });
+            });
+
+            document.querySelectorAll('.delete-component').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const componentId = parseInt(this.getAttribute('data-id'));
+                    deleteComponent(componentId);
+                });
+            });
+        }
+
+        // Render customers table
+        function renderCustomers(page = 1, searchQuery = '') {
+            const tbody = document.getElementById('customers-table-body');
+            tbody.innerHTML = '';
+
+            let filteredCustomers = [...customers];
+            
+            // Apply search query
+            if (searchQuery) {
+                const query = searchQuery.toLowerCase();
+                filteredCustomers = filteredCustomers.filter(c => 
+                    `${c.firstName} ${c.lastName}`.toLowerCase().includes(query) || 
+                    c.company.toLowerCase().includes(query) ||
+                    c.email.toLowerCase().includes(query)
+                );
+            }
+
+            // Calculate pagination
+            const totalPages = Math.ceil(filteredCustomers.length / itemsPerPage);
+            const startIndex = (page - 1) * itemsPerPage;
+            const paginatedCustomers = filteredCustomers.slice(startIndex, startIndex + itemsPerPage);
+
+            if (paginatedCustomers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px; color: var(--gray);">No customers found</td></tr>';
+                document.getElementById('prev-page-btn').disabled = true;
+                document.getElementById('next-page-btn').disabled = true;
+                document.getElementById('page-info').textContent = `Page 0 of 0`;
+                return;
+            }
+
+            paginatedCustomers.forEach(customer => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${customer.firstName} ${customer.lastName}</td>
+                    <td>${customer.company}</td>
+                    <td>${customer.email}</td>
+                    <td>${customer.orders}</td>
+                    <td>${formatDate(customer.lastOrder)}</td>
+                    <td class="customer-actions">
+                        <button class="btn btn-outline btn-sm view-customer" data-id="${customer.id}"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-outline btn-sm edit-customer" data-id="${customer.id}"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-outline btn-sm delete-customer" data-id="${customer.id}"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+
+            // Update pagination controls
+            document.getElementById('prev-page-btn').disabled = page <= 1;
+            document.getElementById('next-page-btn').disabled = page >= totalPages;
+            document.getElementById('page-info').textContent = `Page ${page} of ${totalPages}`;
+
+            // Add event listeners to action buttons
+            document.querySelectorAll('.view-customer').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const customerId = parseInt(this.getAttribute('data-id'));
+                    viewCustomer(customerId);
+                });
+            });
+
+            document.querySelectorAll('.edit-customer').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const customerId = parseInt(this.getAttribute('data-id'));
+                    editCustomer(customerId);
+                });
+            });
+
+            document.querySelectorAll('.delete-customer').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const customerId = parseInt(this.getAttribute('data-id'));
+                    deleteCustomer(customerId);
+                });
+            });
+        }
+
+        // Render alerts
+        function renderAlerts() {
+            const container = document.getElementById('alerts-container');
+            container.innerHTML = '';
+
+            // Sort alerts by date (newest first)
+            const sortedAlerts = [...alerts].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Show only the first 3 alerts
+            const alertsToShow = sortedAlerts.slice(0, 3);
+
+            if (alertsToShow.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--gray);">No alerts</div>';
+                return;
+            }
+
+            alertsToShow.forEach(alert => {
+                let alertClass = '';
+                let icon = '';
+                
+                switch (alert.type) {
+                    case 'warning':
+                        alertClass = 'alert-warning';
+                        icon = 'fa-exclamation-triangle';
+                        break;
+                    case 'danger':
+                        alertClass = 'alert-danger';
+                        icon = 'fa-times-circle';
+                        break;
+                    case 'info':
+                        alertClass = 'alert-info';
+                        icon = 'fa-info-circle';
+                        break;
+                    default:
+                        alertClass = 'alert-info';
+                        icon = 'fa-info-circle';
+                }
+                
+                const alertElement = document.createElement('div');
+                alertElement.className = `alert ${alertClass}`;
+                alertElement.style.cursor = 'pointer';
+                alertElement.setAttribute('data-id', alert.id);
+                
+                alertElement.innerHTML = `
+                    <i class="fas ${icon} alert-icon"></i>
+                    <div>
+                        <strong>${alert.title}</strong>
+                        <p>${alert.message}</p>
+                    </div>
+                `;
+                
+                container.appendChild(alertElement);
+
+                // Add click event to view alert details
+                alertElement.addEventListener('click', function() {
+                    viewAlert(alert.id);
+                });
+            });
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        // Initialize charts
+        function initCharts() {
+            // Sales chart
+            const salesCtx = document.getElementById('salesChart').getContext('2d');
+            const salesChart = new Chart(salesCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Monthly Sales ($)',
+                        data: [1200, 1900, 1500, 2100, 1800, 2500, 2200, 2300, 2000, 2500, 3000, 3500],
+                        backgroundColor: 'rgba(67, 97, 238, 0.2)',
+                        borderColor: 'rgba(67, 97, 238, 1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Projects chart
+            const projectsCtx = document.getElementById('projectsChart').getContext('2d');
+            const projectsChart = new Chart(projectsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Planning', 'In Progress', 'Testing', 'Completed'],
+                    datasets: [{
+                        label: 'Projects by Status',
+                        data: [2, 3, 1, 4],
+                        backgroundColor: [
+                            'rgba(72, 149, 239, 0.7)',
+                            'rgba(67, 97, 238, 0.7)',
+                            'rgba(76, 201, 240, 0.7)',
+                            'rgba(63, 55, 201, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(72, 149, 239, 1)',
+                            'rgba(67, 97, 238, 1)',
+                            'rgba(76, 201, 240, 1)',
+                            'rgba(63, 55, 201, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Add a new component
+        function addComponent() {
+            editingComponentId = null;
+            document.getElementById('component-modal-title').textContent = 'Add New Component';
+            document.getElementById('component-name').value = '';
+            document.getElementById('component-part-number').value = '';
+            document.getElementById('component-category').value = 'resistors';
+            document.getElementById('component-quantity').value = '0';
+            document.getElementById('component-description').value = '';
+            document.getElementById('component-image-url').value = '';
+            document.getElementById('component-modal').classList.add('active');
+        }
+
+        // Edit an existing component
+        function editComponent(id) {
+            const component = components.find(c => c.id === id);
+            if (!component) return;
+
+            editingComponentId = id;
+            document.getElementById('component-modal-title').textContent = 'Edit Component';
+            document.getElementById('component-name').value = component.name;
+            document.getElementById('component-part-number').value = component.partNumber;
+            document.getElementById('component-category').value = component.category;
+            document.getElementById('component-quantity').value = component.quantity;
+            document.getElementById('component-description').value = component.description || '';
+            document.getElementById('component-image-url').value = component.imageUrl || '';
+            document.getElementById('component-modal').classList.add('active');
+        }
+
+        // Save component (add or edit)
+        function saveComponent() {
+            const name = document.getElementById('component-name').value.trim();
+            const partNumber = document.getElementById('component-part-number').value.trim();
+            const category = document.getElementById('component-category').value;
+            const quantity = parseInt(document.getElementById('component-quantity').value) || 0;
+            const description = document.getElementById('component-description').value.trim();
+            const imageUrl = document.getElementById('component-image-url').value.trim();
+
+            if (!name || !partNumber) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            if (editingComponentId) {
+                // Update existing component
+                const index = components.findIndex(c => c.id === editingComponentId);
+                if (index !== -1) {
+                    components[index] = {
+                        ...components[index],
+                        name,
+                        partNumber,
+                        category,
+                        quantity,
+                        description,
+                        imageUrl
+                    };
+                }
+            } else {
+                // Add new component
+                const newId = components.length > 0 ? Math.max(...components.map(c => c.id)) + 1 : 1;
+                components.push({
+                    id: newId,
+                    name,
+                    partNumber,
+                    category,
+                    quantity,
+                    description,
+                    imageUrl
+                });
+            }
+
+            saveComponents();
+            closeComponentModal();
+        }
+
+        // Delete a component
+        function deleteComponent(id) {
+            if (confirm('Are you sure you want to delete this component?')) {
+                components = components.filter(c => c.id !== id);
+                saveComponents();
+            }
+        }
+
+        // Close component modal
+        function closeComponentModal() {
+            document.getElementById('component-modal').classList.remove('active');
+        }
+
+        // Add a new customer
+        function addCustomer() {
+            editingCustomerId = null;
+            document.getElementById('customer-modal-title').textContent = 'Add New Customer';
+            document.getElementById('customer-first-name').value = '';
+            document.getElementById('customer-last-name').value = '';
+            document.getElementById('customer-company').value = '';
+            document.getElementById('customer-email').value = '';
+            document.getElementById('customer-phone').value = '';
+            document.getElementById('customer-address').value = '';
+            document.getElementById('customer-modal').classList.add('active');
+        }
+
+        // View customer details
+        function viewCustomer(id) {
+            const customer = customers.find(c => c.id === id);
+            if (!customer) return;
+
+            document.getElementById('alert-modal-title').textContent = 'Customer Details';
+            document.getElementById('alert-modal-content').innerHTML = `
+                <div class="form-group">
+                    <label>Name</label>
+                    <p>${customer.firstName} ${customer.lastName}</p>
+                </div>
+                <div class="form-group">
+                    <label>Company</label>
+                    <p>${customer.company}</p>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <p>${customer.email}</p>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <p>${customer.phone}</p>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <p>${customer.address}</p>
+                </div>
+                <div class="form-group">
+                    <label>Orders</label>
+                    <p>${customer.orders}</p>
+                </div>
+                <div class="form-group">
+                    <label>Last Order</label>
+                    <p>${formatDate(customer.lastOrder)}</p>
+                </div>
+            `;
+            document.getElementById('alert-modal').classList.add('active');
+        }
+
+        // Edit an existing customer
+        function editCustomer(id) {
+            const customer = customers.find(c => c.id === id);
+            if (!customer) return;
+
+            editingCustomerId = id;
+            document.getElementById('customer-modal-title').textContent = 'Edit Customer';
+            document.getElementById('customer-first-name').value = customer.firstName;
+            document.getElementById('customer-last-name').value = customer.lastName;
+            document.getElementById('customer-company').value = customer.company;
+            document.getElementById('customer-email').value = customer.email;
+            document.getElementById('customer-phone').value = customer.phone;
+            document.getElementById('customer-address').value = customer.address || '';
+            document.getElementById('customer-modal').classList.add('active');
+        }
+
+        // Save customer (add or edit)
+        function saveCustomer() {
+            const firstName = document.getElementById('customer-first-name').value.trim();
+            const lastName = document.getElementById('customer-last-name').value.trim();
+            const company = document.getElementById('customer-company').value.trim();
+            const email = document.getElementById('customer-email').value.trim();
+            const phone = document.getElementById('customer-phone').value.trim();
+            const address = document.getElementById('customer-address').value.trim();
+
+            if (!firstName || !lastName || !email) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            if (editingCustomerId) {
+                // Update existing customer
+                const index = customers.findIndex(c => c.id === editingCustomerId);
+                if (index !== -1) {
+                    customers[index] = {
+                        ...customers[index],
+                        firstName,
+                        lastName,
+                        company,
+                        email,
+                        phone,
+                        address
+                    };
+                }
+            } else {
+                // Add new customer
+                const newId = customers.length > 0 ? Math.max(...customers.map(c => c.id)) + 1 : 1;
+                customers.push({
+                    id: newId,
+                    firstName,
+                    lastName,
+                    company,
+                    email,
+                    phone,
+                    address,
+                    orders: 0,
+                    lastOrder: null
+                });
+            }
+
+            saveCustomers();
+            closeCustomerModal();
+        }
+
+        // Delete a customer
+        function deleteCustomer(id) {
+            if (confirm('Are you sure you want to delete this customer?')) {
+                customers = customers.filter(c => c.id !== id);
+                saveCustomers();
+            }
+        }
+
+        // Close customer modal
+        function closeCustomerModal() {
+            document.getElementById('customer-modal').classList.remove('active');
+        }
+
+        // View alert details
+        function viewAlert(id) {
+            const alert = alerts.find(a => a.id === id);
+            if (!alert) return;
+
+            let alertClass = '';
+            let icon = '';
+            
+            switch (alert.type) {
+                case 'warning':
+                    alertClass = 'alert-warning';
+                    icon = 'fa-exclamation-triangle';
+                    break;
+                case 'danger':
+                    alertClass = 'alert-danger';
+                    icon = 'fa-times-circle';
+                    break;
+                case 'info':
+                    alertClass = 'alert-info';
+                    icon = 'fa-info-circle';
+                    break;
+                default:
+                    alertClass = 'alert-info';
+                    icon = 'fa-info-circle';
+            }
+
+            document.getElementById('alert-modal-title').textContent = alert.title;
+            document.getElementById('alert-modal-content').innerHTML = `
+                <div class="alert ${alertClass}">
+                    <i class="fas ${icon} alert-icon"></i>
+                    <div>
+                        <strong>${alert.title}</strong>
+                        <p>${alert.message}</p>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Date</label>
+                    <p>${formatDate(alert.date)}</p>
+                </div>
+            `;
+            document.getElementById('alert-modal').classList.add('active');
+
+            // Mark as read
+            if (!alert.read) {
+                alert.read = true;
+                saveAlerts();
+            }
+        }
+
+        // Close alert modal
+        function closeAlertModal() {
+            document.getElementById('alert-modal').classList.remove('active');
+        }
+
+        // Change password
+        function changePassword() {
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                alert('Please fill in all password fields');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert('New passwords do not match');
+                return;
+            }
+
+            // In a real app, you would validate the current password and update it
+            alert('Password changed successfully');
+            document.getElementById('current-password').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-password').value = '';
+        }
+
+        // Initialize the application
+        function init() {
+            loadData();
+            updateDashboardStats();
+            renderComponents();
+            renderCustomers();
+            renderAlerts();
+            initCharts();
+
+            // Navigation between sections
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all nav links and sections
+                    document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+                    document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+                    
+                    // Add active class to clicked nav link
+                    this.classList.add('active');
+                    
+                    // Show corresponding section
+                    const sectionId = this.getAttribute('data-section') + '-section';
+                    document.getElementById(sectionId).classList.add('active');
+                    
+                    // Update page title
+                    const sectionTitle = this.querySelector('span').textContent;
+                    document.getElementById('section-title').textContent = sectionTitle;
+                });
+            });
+
+            // Settings tabs
+            document.querySelectorAll('.settings-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and contents
+                    document.querySelectorAll('.settings-tab').forEach(el => el.classList.remove('active'));
+                    document.querySelectorAll('.settings-content').forEach(el => el.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = this.getAttribute('data-tab') + '-tab';
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // EC category filter
+            document.querySelectorAll('.ec-category').forEach(category => {
+                category.addEventListener('click', function() {
+                    document.querySelectorAll('.ec-category').forEach(el => el.classList.remove('active'));
+                    this.classList.add('active');
+                    const category = this.getAttribute('data-category');
+                    renderComponents(category, document.getElementById('component-search').value);
+                });
+            });
+
+            // Component search
+            document.getElementById('component-search').addEventListener('input', function() {
+                const activeCategory = document.querySelector('.ec-category.active');
+                const category = activeCategory ? activeCategory.getAttribute('data-category') : 'all';
+                renderComponents(category, this.value);
+            });
+
+            // Customer search
+            document.getElementById('search-customer-btn').addEventListener('click', function() {
+                const searchQuery = document.getElementById('customer-search-input').value;
+                renderCustomers(1, searchQuery);
+            });
+
+            // Customer pagination
+            document.getElementById('prev-page-btn').addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    const searchQuery = document.getElementById('customer-search-input').value;
+                    renderCustomers(currentPage, searchQuery);
+                }
+            });
+
+            document.getElementById('next-page-btn').addEventListener('click', function() {
+                const searchQuery = document.getElementById('customer-search-input').value;
+                const filteredCustomers = searchQuery 
+                    ? customers.filter(c => 
+                        `${c.firstName} ${c.lastName}`.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                        c.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                        c.email.toLowerCase().includes(searchQuery.toLowerCase()))
+                    : customers;
+                
+                const totalPages = Math.ceil(filteredCustomers.length / itemsPerPage);
+                
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderCustomers(currentPage, searchQuery);
+                }
+            });
+
+            // Add component button
+            document.getElementById('add-component-btn').addEventListener('click', addComponent);
+
+            // Save component button
+            document.getElementById('save-component-btn').addEventListener('click', saveComponent);
+
+            // Cancel component button
+            document.getElementById('cancel-component-btn').addEventListener('click', closeComponentModal);
+
+            // Close component modal button
+            document.getElementById('close-component-modal').addEventListener('click', closeComponentModal);
+
+            // Add customer button
+            document.getElementById('add-customer-btn').addEventListener('click', addCustomer);
+
+            // Save customer button
+            document.getElementById('save-customer-btn').addEventListener('click', saveCustomer);
+
+            // Cancel customer button
+            document.getElementById('cancel-customer-btn').addEventListener('click', closeCustomerModal);
+
+            // Close customer modal button
+            document.getElementById('close-customer-modal').addEventListener('click', closeCustomerModal);
+
+            // View all alerts button
+            document.getElementById('view-all-alerts').addEventListener('click', function() {
+                // In a real app, this would navigate to a full alerts page
+                alert('This would show all alerts in a full page view');
+            });
+
+            // View all projects button
+            document.getElementById('view-all-projects').addEventListener('click', function() {
+                // In a real app, this would navigate to a projects page
+                alert('This would show all projects in a full page view');
+            });
+
+            // Export sales button
+            document.getElementById('export-sales').addEventListener('click', function() {
+                alert('Sales data exported (simulated)');
+            });
+
+            // Close alert modal button
+            document.getElementById('close-alert-btn').addEventListener('click', closeAlertModal);
+
+            // Close alert modal button (X)
+            document.getElementById('close-alert-modal').addEventListener('click', closeAlertModal);
+
+            // Save profile button
+            document.getElementById('save-profile-btn').addEventListener('click', saveSettings);
+
+            // Save account button
+            document.getElementById('save-account-btn').addEventListener('click', saveSettings);
+
+            // Save notifications button
+            document.getElementById('save-notifications-btn').addEventListener('click', saveSettings);
+
+            // Change password button
+            document.getElementById('change-password-btn').addEventListener('click', changePassword);
+
+            // Simulate real-time updates
+            setInterval(() => {
+                const lastUpdated = document.getElementById('last-updated');
+                if (lastUpdated.textContent === 'Just now') {
+                    lastUpdated.textContent = '1 min ago';
+                } else if (lastUpdated.textContent === '1 min ago') {
+                    lastUpdated.textContent = '2 min ago';
+                }
+            }, 60000);
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
